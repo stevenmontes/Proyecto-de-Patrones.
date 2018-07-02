@@ -83,7 +83,7 @@ public class Main {
 		do {
 			mostrarMenu();
 			opcion = leerOpcion();
-			//salir = mainOpciones(opcion);
+		
 		} while (!salir);
 		
 		return salir;
