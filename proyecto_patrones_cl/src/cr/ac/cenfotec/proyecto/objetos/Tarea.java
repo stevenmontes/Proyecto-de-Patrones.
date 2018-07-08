@@ -85,6 +85,17 @@ public class Tarea {
 	public void setPasos(ArrayList<Paso> pasos) {
 		this.pasos = pasos;
 	}
+	@Override
+	public String toString() {
+		String s = " ";
+		s += "Tarea: Codigo: " + codigo + " || Nombre: " + nombre + " || Descripcion: " + descripcion + "|| Estado:"
+				+ estado + " || Area Encargada: " + areaEncargada;
+		s += "PASOS DE TAREA:";
+		for (Paso p : pasos) {
+			s += p.toString();
+		}
+		return s;
+	}
 	
 	
 }
