@@ -107,6 +107,17 @@ public class Controlador {
 		Paso pasoNuevo = new Paso(codigo, nombre, descripcion);
 		return pasos.modificarPaso(pasoNuevo);
 	}
+	
+	public String listarPaso(String codTarea) {
+		ArrayList<Paso> listPasos = pasos.listarPasos(codTarea);
+		String pasos = "";
+		
+		for(int i = 0; i < listPasos.size(); i++) {
+			pasos += listPasos.get(i).toString();
+		}
+		
+		return pasos;
+	}
 
 	public String registrarEmpleado(String ced, String nom1, String nom2, String ape1, String ape2, String correo,
 			String nomU, String clave, String rol, String codArea) {
