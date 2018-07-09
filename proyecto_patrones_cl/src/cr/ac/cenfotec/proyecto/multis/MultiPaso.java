@@ -12,32 +12,32 @@ public class MultiPaso {
 		
 	}
 	
-	public String registrarPaso(Paso E, String codTarea) {
-        String consulta = "{Call dbo.pa_registrar_paso ('" + E.getCodigo() + "','" + E.getNombre() + "','" + E.getDescripcion() + "', '" + codTarea + "')}";
+	public String registrarPaso(Paso nuevoPaso, String codTarea) {
+        String consulta = "{Call dbo.pa_registrar_paso ('" + nuevoPaso.getCodigo() + "','" + nuevoPaso.getNombre() + "','" + nuevoPaso.getDescripcion() + "', '" + codTarea + "')}";
         String resultado;
 
         try {
                 Conector.getConector().ejecutarSQL(consulta);
                 resultado = "El paso se registró correctamente en el sistema.";
 
-        } catch (Exception ex) {
-                resultado = "No se pudo registrar el paso, intentelo de nuevo " + ex.getMessage();
+        } catch (Exception error) {
+                resultado = "No se pudo registrar el paso, intentelo de nuevo " + error.getMessage();
 
         }
 
         return resultado;
 	}
 	
-	public String modificarPaso(Paso E) {
-        String consulta = "{Call dbo.pa_modificar_paso ('" + E.getCodigo() + "', '" + E.getNombre() + "','" + E.getDescripcion() + "')}";
+	public String modificarPaso(Paso paso) {
+        String consulta = "{Call dbo.pa_modificar_paso ('" + paso.getCodigo() + "', '" + paso.getNombre() + "','" + paso.getDescripcion() + "')}";
         String resultado;
 
         try {
                 Conector.getConector().ejecutarSQL(consulta);
                 resultado = "El paso se modifico correctamente en el sistema.";
 
-        } catch (Exception ex) {
-                resultado = "No se pudo modificar el paso, intentelo de nuevo " + ex.getMessage();
+        } catch (Exception error) {
+                resultado = "No se pudo modificar el paso, intentelo de nuevo " + error.getMessage();
 
         }
 
@@ -49,13 +49,13 @@ public class MultiPaso {
         ArrayList<String> lista = new ArrayList<>();
 
         try {
-                ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
+                ResultSet conexion = Conector.getConector().ejecutarSQL(consulta, true);
                 
-                while(rs.next()) {
-                	lista.add(rs.getString("codigo"));
+                while(conexion.next()) {
+                	lista.add(conexion.getString("codigo"));
                 }
 
-        } catch (Exception ex) {
+        } catch (Exception error) {
         }
 
         return lista;
@@ -66,16 +66,16 @@ public class MultiPaso {
         ArrayList<Paso> lista = new ArrayList<>();
 
         try {
-                ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
+                ResultSet conexion = Conector.getConector().ejecutarSQL(consulta, true);
                 
-                while(rs.next()) {                	
-                	Paso np = new Paso();
-                	np.setNombre(rs.getString("nombre"));
-                	np.setDescripcion(rs.getString("descripcion"));
-                	lista.add(np);
+                while(conexion.next()) {                	
+                	Paso nuevoPaso = new Paso();
+                	nuevoPaso.setNombre(conexion.getString("nombre"));
+                	nuevoPaso.setDescripcion(conexion.getString("descripcion"));
+                	lista.add(nuevoPaso);
                 }
 
-        } catch (Exception ex) {
+        } catch (Exception error) {
         	lista = new ArrayList<>();
         }
 
