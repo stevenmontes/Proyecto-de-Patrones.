@@ -53,6 +53,9 @@ ALTER TABLE tpaso
 ALTER TABLE tpaso
 	ADD codigo VARCHAR(50) NOT NULL CONSTRAINT DF_codigo_paso DEFAULT ''
 
+ALTER TABLE tpaso
+	ADD respuesta CHAR(1) NOT NULL CONSTRAINT DF_respuesta_paso DEFAULT 'f'
+
 CREATE TABLE templeado (
 	id INT NOT NULL CONSTRAINT PK_empleado PRIMARY KEY IDENTITY (1,1),
 	cedula VARCHAR(20) NOT NULL,
@@ -305,8 +308,17 @@ ALTER PROCEDURE pa_obtener_paso
 		ON t.id_area_funcional = a.id
 		WHERE t.id_proceso = @id_proceso
 
-SELECT * FROM tproceso
-SELECT * FROM tarea_funcional
-SELECT * FROM ttarea
-SELECT * FROM tpaso
-SELECT * FROM templeado
+CREATE PROCEDURE pa_listar_pasos
+	@codigo_tarea VARCHAR(50)
+	AS
+	DECLARE @id_tarea INT
+
+	SELECT @id_tarea = id
+	FROM ttarea
+	WHERE codigo = @codigo_tarea
+
+	SELECT p.id, p.codigo, p.nombre, p.descripcion, p.respuesta, p.estado, e.primer_nombre, p.fecha_inicio, p.fecha_fin
+	FROM tpaso AS p 
+	INNER JOIN templeado AS e
+	ON p.id_empleado = e.id
+	WHERE id_tarea = @id_tarea
