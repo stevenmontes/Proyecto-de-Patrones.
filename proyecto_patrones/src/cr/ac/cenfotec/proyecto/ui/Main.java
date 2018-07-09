@@ -570,19 +570,6 @@ public class Main {
 		return sct;
 	}
 	
-		private static String obtenerCodigoTarea() throws IOException {
-		String codTarea = "";
-		boolean validar = false;
-		
-		while(!validar) {
-			imprimir.println("Digite el codigo de la tarea");
-			codTarea = leer.readLine();
-			validar = controlador.validarCodigo(codTarea, controlador.codidosTareas());
-		}
-
-		return codTarea;
-	}
-	
 	private static String obtenerCodigoTarea() throws IOException {
 		String codTarea = "";
 		boolean validar = false;
@@ -595,5 +582,4 @@ public class Main {
 
 		return codTarea;
 	}
-
 }
