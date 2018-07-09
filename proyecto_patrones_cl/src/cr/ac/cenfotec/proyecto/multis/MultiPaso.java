@@ -81,4 +81,29 @@ public class MultiPaso {
 
         return lista;
 	}
+
+	public ArrayList<Paso> listarPasos(String codTarea) {
+		ArrayList<Paso> listPasos = new ArrayList<>();
+        String consulta = "{Call dbo.pa_listar_pasos ('" + codTarea + "')}";
+
+        try {
+        	ResultSet conexion = Conector.getConector().ejecutarSQL(consulta, true);
+        	
+        	while(conexion.next()) {
+        		Paso nuevoPaso = new Paso();
+        		nuevoPaso.setId(Integer.parseInt(conexion.getString("id")));
+        		nuevoPaso.setCodigo(conexion.getString("codigo"));
+        		nuevoPaso.setNombre(conexion.getString("nombre"));
+        		nuevoPaso.setDescripcion(conexion.getString("descripcion"));
+        		nuevoPaso.setFechaInicio(conexion.getString("fecha_inicio"));
+        		nuevoPaso.setFechaFin(conexion.getString("fecha_fin"));
+        		listPasos.add(nuevoPaso);
+        	}
+
+        } catch (Exception error) {
+        }
+
+        return listPasos;
+	}
+	
 }

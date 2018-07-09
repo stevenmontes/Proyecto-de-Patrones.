@@ -53,11 +53,11 @@ public class Paso {
 		return respuesta;
 	}
 
-	public void aceptar() {
+	public void aceptarRespuesta() {
 		this.respuesta = true;
 	}
 	
-	public void rechazar() {
+	public void rechazarRespuesta() {
 		this.respuesta = false;
 	}
 
@@ -120,5 +120,18 @@ public class Paso {
 	public String getFechaFin() {
 		return fechaFin;
 	}
+	
+
+	public void setRespuesta(boolean respuesta) {
+		this.respuesta = respuesta;
+	}
+
+	@Override
+	public String toString() {
+		return "Paso: " + "\n" + "ID:" + id + "\n" +"Codigo:" + codigo + "\n" + "Nombre:" + nombre + "\n" + "Descripcion:" + descripcion
+				+ "\n" + "Estado:" + estado + "\n" + "Fecha inicio:"
+				+ fechaInicio + "\n" + "Fecha fin:" + fechaFin;		
+	}
+	
 	
 }
