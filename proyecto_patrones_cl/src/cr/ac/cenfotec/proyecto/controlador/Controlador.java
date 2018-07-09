@@ -93,7 +93,7 @@ public class Controlador {
 		return tarea.modificarTarea(as);
 	}
 
-	public ArrayList<Tareea> listarTareas(String codigo) {
+	public ArrayList<Tarea> listarTareas(String codigo) {
 		ArrayList<Tarea> listaTareas = tarea.listarTareas(codigo);
 		return listaTareas;
 	}
