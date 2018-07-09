@@ -1,4 +1,4 @@
-package cr.ac.cenfotec.proyecto.controlador;
+	package cr.ac.cenfotec.proyecto.controlador;
 
 import java.util.ArrayList;
 
@@ -93,20 +93,28 @@ public class Controlador {
 		return tarea.modificarTarea(as);
 	}
 
-	public ArrayList<Tarea> listarTareas(String codigo) {
+	public String[][] listarTareas(String codigo) {
 		ArrayList<Tarea> lt = tarea.listarTareas(codigo);
-	
-		return lt;
+		String[][] mt = new String[lt.size()][4];
+		
+		for(int i = 0; i < mt.length; i++) {
+			mt[i][0] = lt.get(i).getCodigo();
+			mt[i][1] = lt.get(i).getNombre();
+			mt[i][2] = lt.get(i).getDescripcion();
+			mt[i][3] = lt.get(i).getEstado();
+		}
+		
+		return mt;
 	}
 
 	public String registrarPaso(String codigo, String nombre, String descripcion, String codTarea) {
-		Paso ps = new Paso(codigo, nombre, descripcion);
-		return pasos.registrarPaso(ps, codTarea);
+		Paso pasoNuevo = new Paso(codigo, nombre, descripcion);
+		return pasos.registrarPaso(pasoNuevo, codTarea);
 	}
 
 	public String modificarPaso(String codigo, String nombre, String descripcion) {
-		Paso ps = new Paso(codigo, nombre, descripcion);
-		return pasos.modificarPaso(ps);
+		Paso pasoNuevo = new Paso(codigo, nombre, descripcion);
+		return pasos.modificarPaso(pasoNuevo);
 	}
 
 	public String registrarEmpleado(String ced, String nom1, String nom2, String ape1, String ape2, String correo,
@@ -136,20 +144,20 @@ public class Controlador {
 	}
 
 	public ArrayList<String> obtenerDescripcionPaso(String id_area) {
-		ArrayList<String> ids = tarea.obtenerIdTarea(id_area);
-		ArrayList<Paso> lista;
-		ArrayList<String> dePasos = new ArrayList<>();
-		String id_tarea;
+		ArrayList<String> idsTareas = tarea.obtenerIdTarea(id_area);
+		ArrayList<Paso> listaPasos;
+		ArrayList<String> nombrePasos = new ArrayList<>();
+		String idTarea;
 
-		for (int i = 0; i < ids.size(); i++) {
-			id_tarea = ids.get(i);
-			lista = pasos.obtenerInfoPasos(id_tarea);
+		for (int indTarea = 0; indTarea < idsTareas.size(); indTarea++) {
+			idTarea = idsTareas.get(indTarea);
+			listaPasos = pasos.obtenerInfoPasos(idTarea);
 
-			for (int j = 0; j < lista.size(); j++) {
-				dePasos.add(lista.get(j).getNombre());
+			for (int indPaso = 0; indPaso < listaPasos.size(); indPaso++) {
+				nombrePasos.add(listaPasos.get(indPaso).getNombre());
 			}
 		}
 
-		return dePasos;
+		return nombrePasos;
 	}
 }
