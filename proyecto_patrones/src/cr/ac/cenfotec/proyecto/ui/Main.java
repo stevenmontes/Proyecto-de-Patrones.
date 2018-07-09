@@ -513,6 +513,7 @@ public class Main {
 			listarTareas();
 			break;
 		case 4:
+			listarPasosTarea();
 			break;
 		case 5: 
 			break;
@@ -524,6 +525,12 @@ public class Main {
 		}
 		
 		return salir;
+	}
+	
+	private static void listarPasosTarea() throws IOException {
+		String codTarea = obtenerCodigoTarea();
+		String infoPasos = controlador.listarPaso(codTarea);
+		imprimir.println(infoPasos);
 	}
 	
 	public static void listarProcesos() {
@@ -561,6 +568,32 @@ public class Main {
 		}
 		
 		return sct;
+	}
+	
+		private static String obtenerCodigoTarea() throws IOException {
+		String codTarea = "";
+		boolean validar = false;
+		
+		while(!validar) {
+			imprimir.println("Digite el codigo de la tarea");
+			codTarea = leer.readLine();
+			validar = controlador.validarCodigo(codTarea, controlador.codidosTareas());
+		}
+
+		return codTarea;
+	}
+	
+	private static String obtenerCodigoTarea() throws IOException {
+		String codTarea = "";
+		boolean validar = false;
+		
+		while(!validar) {
+			imprimir.println("Digite el codigo de la tarea");
+			codTarea = leer.readLine();
+			validar = controlador.validarCodigo(codTarea, controlador.codidosTareas());
+		}
+
+		return codTarea;
 	}
 
 }
