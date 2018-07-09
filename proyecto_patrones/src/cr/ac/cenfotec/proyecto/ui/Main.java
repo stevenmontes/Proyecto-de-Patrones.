@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 import cr.ac.cenfotec.proyecto.controlador.Controlador;
+import cr.ac.cenfotec.proyecto.objetos.Tarea;
+
 
 public class Main {
 
@@ -31,7 +33,7 @@ public class Main {
 		
 		imprimir.println("Digite su usuario.");
 		nombre = leer.readLine();
-		imprimir.println("Digite su contrase馻");
+		imprimir.println("Digite su contrase帽a");
 		clave = leer.readLine();
 		
 		a = verificarInicioSesion(nombre, clave);
@@ -192,11 +194,11 @@ public class Main {
 	public static void obtenerInfoTramite() throws IOException {
 		String codigo, nombre, descripcion;
 		boolean EE;
-		imprimir.println("Digite el c骴igo del proceso");
+		imprimir.println("Digite el c贸digo del proceso");
 		codigo = leer.readLine();
 		imprimir.println("Digite el nombre del proceso");
 		nombre = leer.readLine();
-		imprimir.println("Digite la descripci髇 del proceso");
+		imprimir.println("Digite la descripci贸n del proceso");
 		descripcion = leer.readLine();
 		
 		EE = controlador.validarCodigo(codigo, controlador.codidosTramites());
@@ -211,11 +213,11 @@ public class Main {
 	public static void obtenerInfoTarea () throws IOException {
 		String codigoTarea, nombre, descripcion, resultado, codigoDep, codigoPro;
 		boolean CT, CP, CA;
-		imprimir.println("Digite el c骴igo de la tarea");
+		imprimir.println("Digite el c贸digo de la tarea");
 		codigoTarea = leer.readLine();
 		imprimir.println("Digite el nombre de la tarea");
 		nombre = leer.readLine();
-		imprimir.println("Digite la descripci髇 de la tarea");
+		imprimir.println("Digite la descripci贸n de la tarea");
 		descripcion = leer.readLine();
 		imprimir.println("Digite el codigo del departamento encargado");
 		codigoDep = leer.readLine();
@@ -296,11 +298,11 @@ public class Main {
 	public static void obtenerInfoArea() throws IOException {
 		String codigo, nombre, descripcion, resultado;
 		boolean CA;
-		imprimir.println("Digite el c骴igo de la area funcional");
+		imprimir.println("Digite el c贸digo de la area funcional");
 		codigo = leer.readLine();
 		imprimir.println("Digite el nombre de la area funcional");
 		nombre = leer.readLine();
-		imprimir.println("Digite la descripci髇 de la area funcional");
+		imprimir.println("Digite la descripci贸n de la area funcional");
 		descripcion = leer.readLine();
 		
 		CA = controlador.validarCodigo(codigo, controlador.codidosAreas());
@@ -362,11 +364,11 @@ public class Main {
 	public static void modificarProceso() throws IOException {
 		String codigo, nombre, descripcion;
 		boolean EE;
-		imprimir.println("Digite el c骴igo del proceso a modificar");
+		imprimir.println("Digite el c贸digo del proceso a modificar");
 		codigo = leer.readLine();
 		imprimir.println("Digite el nuevo nombre del proceso");
 		nombre = leer.readLine();
-		imprimir.println("Digite la nueva descripci髇 del proceso");
+		imprimir.println("Digite la nueva descripci贸n del proceso");
 		descripcion = leer.readLine();
 		
 		EE = controlador.validarCodigo(codigo, controlador.codidosTramites());
@@ -381,11 +383,11 @@ public class Main {
 	public static void modificarTarea() throws IOException {
 		String codigoTarea, nombre, descripcion, codigoDep;
 		boolean CT, CA;
-		imprimir.println("Digite el c骴igo de la tarea a modificar");
+		imprimir.println("Digite el c贸digo de la tarea a modificar");
 		codigoTarea = leer.readLine();
 		imprimir.println("Digite el nuevo nombre de la tarea");
 		nombre = leer.readLine();
-		imprimir.println("Digite la nueva descripci髇 de la tarea");
+		imprimir.println("Digite la nueva descripci贸n de la tarea");
 		descripcion = leer.readLine();
 		imprimir.println("Digite el codigo del nuevo departamento encargado de la tarea");
 		codigoDep = leer.readLine();
@@ -458,11 +460,11 @@ public class Main {
 	public static void modificarArea() throws IOException {
 		String codigo, nombre, descripcion;
 		boolean CA;
-		imprimir.println("Digite el c骴igo de la area funcional a modificar ");
+		imprimir.println("Digite el c贸digo de la area funcional a modificar ");
 		codigo = leer.readLine();
 		imprimir.println("Digite el nuevo nombre de la area funcional");
 		nombre = leer.readLine();
-		imprimir.println("Digite la nueva descripci髇 de la area funcional");
+		imprimir.println("Digite la nueva descripci贸n de la area funcional");
 		descripcion = leer.readLine();
 		
 		CA = controlador.validarCodigo(codigo, controlador.codidosAreas());
@@ -541,15 +543,10 @@ public class Main {
 	
 	public static void listarTareas() throws IOException {
 		String ct = obtenerCodigoProceso();
-		String [][] lista = controlador.listarTareas(ct);
-		
-		for(int i = 0; i < lista.length; i++) {
-			imprimir.println("-----------------------------------------");
-			imprimir.println("Codigo: " + lista[i][0]);
-			imprimir.println("Nombre: " + lista[i][1]);
-			imprimir.println("Descripcion: " + lista[i][2]);
-			imprimir.println("Estado: " + lista[i][3]);
-			imprimir.println("-----------------------------------------");
+		ArrayList<Tarea> lista = controlador.listarTareas(ct);
+
+		for (Tarea t : lista) {
+			imprimir.println(t.toString());
 		}
 	}
 	
