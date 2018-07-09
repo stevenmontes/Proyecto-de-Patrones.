@@ -93,18 +93,9 @@ public class Controlador {
 		return tarea.modificarTarea(as);
 	}
 
-	public String[][] listarTareas(String codigo) {
-		ArrayList<Tarea> lt = tarea.listarTareas(codigo);
-		String[][] mt = new String[lt.size()][4];
-		
-		for(int i = 0; i < mt.length; i++) {
-			mt[i][0] = lt.get(i).getCodigo();
-			mt[i][1] = lt.get(i).getNombre();
-			mt[i][2] = lt.get(i).getDescripcion();
-			mt[i][3] = lt.get(i).getEstado();
-		}
-		
-		return mt;
+	public ArrayList<Tareea> listarTareas(String codigo) {
+		ArrayList<Tarea> listaTareas = tarea.listarTareas(codigo);
+		return listaTareas;
 	}
 
 	public String registrarPaso(String codigo, String nombre, String descripcion, String codTarea) {
