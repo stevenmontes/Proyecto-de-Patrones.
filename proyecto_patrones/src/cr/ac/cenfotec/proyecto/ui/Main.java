@@ -382,24 +382,27 @@ public class Main {
 	
 	public static void modificarTarea() throws IOException {
 		String codigoTarea, nombre, descripcion, codigoDep;
-		boolean CT, CA;
+
 		imprimir.println("Digite el código de la tarea a modificar");
 		codigoTarea = leer.readLine();
-		imprimir.println("Digite el nuevo nombre de la tarea");
-		nombre = leer.readLine();
-		imprimir.println("Digite la nueva descripción de la tarea");
-		descripcion = leer.readLine();
-		imprimir.println("Digite el codigo del nuevo departamento encargado de la tarea");
-		codigoDep = leer.readLine();
-		
-		CT = controlador.validarCodigo(codigoTarea, controlador.codidosTareas());
-		CA = controlador.validarCodigo(codigoDep, controlador.codidosAreas());
-		
-		if(CT && CA) {
-			imprimir.println(controlador.modificarTarea(codigoTarea, nombre, descripcion, codigoDep)); 
+		if (!controlador.validarCodigo(codigoTarea, controlador.codidosTareas())) {
+			imprimir.println("No existe el codigo de la tarea, vuelva a intentarlo.");
 		} else {
-			imprimir.println("No existe el codigo de la tarea. vuelve a intentarlo.");
+			imprimir.println("Digite el codigo del nuevo departamento encargado de la tarea");
+			codigoDep = leer.readLine();
+			if (!controlador.validarCodigo(codigoDep, controlador.codidosAreas())) {
+				imprimir.println("No existe el codigo del departamento, vuelva a intentarlo.");
+			} else {
+				imprimir.println("Digite el nuevo nombre de la tarea");
+				nombre = leer.readLine();
+				imprimir.println("Digite la nueva descripción de la tarea");
+				descripcion = leer.readLine();
+
+				imprimir.println(controlador.modificarTarea(codigoTarea, nombre, descripcion, codigoDep));
+			}
+
 		}
+
 	}
 	
 	public static void modificarPaso() throws IOException {
