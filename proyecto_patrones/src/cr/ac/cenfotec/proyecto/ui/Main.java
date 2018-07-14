@@ -314,7 +314,6 @@ public class Main {
 
 	public static void modificarTarea() throws IOException {
 		String codigoTarea, nombre, descripcion, codigoDep;
-
 		codigoTarea = solicitarDatoString("Digite el c\u00f3digo de la tarea a modificar");
 		
 		if (!isValidarCodigoTarea(codigoTarea)) {
@@ -327,7 +326,6 @@ public class Main {
 			} else {
 				nombre = solicitarDatoString("Digite el nuevo nombre de la tarea");
 				descripcion = solicitarDatoString("Digite la nueva descripci\u00f3n de la tarea");
-
 				imprimir.println(controlador.modificarTarea(codigoTarea, nombre, descripcion, codigoDep));
 			}
 

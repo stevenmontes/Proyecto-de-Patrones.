@@ -322,3 +322,13 @@ CREATE PROCEDURE pa_listar_pasos
 	INNER JOIN templeado AS e
 	ON p.id_empleado = e.id
 	WHERE id_tarea = @id_tarea
+	
+	
+	create procedure pa_listarProcesosActivos
+	as
+	select * from tproceso where estado='En proceso'
+	
+	
+	create procedure pa_listarProcesosCompleto
+	as
+	select * from tproceso where estado='Completado'
