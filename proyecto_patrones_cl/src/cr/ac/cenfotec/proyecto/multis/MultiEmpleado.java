@@ -13,21 +13,20 @@ public class MultiEmpleado {
 	
 	public String[] iniciarSesion (String usuario, String clave){
 		String consulta = "{Call dbo.pa_iniciar_sesion ('" + usuario + "', '" + clave + "')}";
-		String [] info = new String[5];
+		String [] info = new String[4];
 		
 		try {
-			ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
+			ResultSet conexion = Conector.getConector().ejecutarSQL(consulta, true);
 			
-			while(rs.next()) {
-				info[0] = rs.getString("cedula");
-				info[1] = rs.getString("primer_nombre");
-				info[2] = rs.getString("primer_apellido");
-				info[3] = rs.getString("id_area_funcional");
-				info[4] = "Se inicio sesion con exito";
+			while(conexion.next()) {
+				info[0] = conexion.getString("cedula");
+				info[1] = conexion.getString("primer_nombre");
+				info[2] = conexion.getString("primer_apellido");
+				info[3] = conexion.getString("id_area_funcional");
 			}
 			
 		} catch (Exception ex) {
-			info[4] = "El nombre del usuario o clave no coinciden entre si.";
+			info[0] = "El nombre del usuario o clave no coinciden entre si.";
 		}
 		
 		return info;
@@ -66,14 +65,14 @@ public class MultiEmpleado {
         String consulta = "{Call dbo.pa_listar_empleado }";
 
         try {
-        	ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
+        	ResultSet conexion = Conector.getConector().ejecutarSQL(consulta, true);
         	
-        	while(rs.next()) {
-        		Empleado Ex = new Empleado(rs.getString("cedula"), rs.getString("primer_nombre"), 
-        								 rs.getString("segundo_nombre"), rs.getString("primer_apellido"), 
-        								 rs.getString("segundo_apellido"), rs.getString("correo"),
-        								 rs.getString("usuario"), rs.getString("clave"), 
-        								 rs.getString("rol"));
+        	while(conexion.next()) {
+        		Empleado Ex = new Empleado(conexion.getString("cedula"), conexion.getString("primer_nombre"), 
+        								 conexion.getString("segundo_nombre"), conexion.getString("primer_apellido"), 
+        								 conexion.getString("segundo_apellido"), conexion.getString("correo"),
+        								 conexion.getString("usuario"), conexion.getString("clave"), 
+        								 conexion.getString("rol"));
         		lista.add(Ex);
         	}
 
@@ -89,10 +88,10 @@ public class MultiEmpleado {
         ArrayList<String> lista = new ArrayList<>();
 
         try {
-                ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
+                ResultSet conexion = Conector.getConector().ejecutarSQL(consulta, true);
                 
-                while(rs.next()) {
-                	lista.add(rs.getString("cedula"));
+                while(conexion.next()) {
+                	lista.add(conexion.getString("cedula"));
                 }
 
         } catch (Exception ex) {

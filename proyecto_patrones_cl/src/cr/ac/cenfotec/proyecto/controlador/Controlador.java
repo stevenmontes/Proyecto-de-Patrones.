@@ -108,15 +108,20 @@ public class Controlador {
 		return pasos.modificarPaso(pasoNuevo);
 	}
 	
-	public String listarPaso(String codTarea) {
+	public String[][] listarPaso(String codTarea) {
 		ArrayList<Paso> listPasos = pasos.listarPasos(codTarea);
-		String pasos = "";
+		String [][] listString = new String[listPasos.size()][6];
 		
 		for(int i = 0; i < listPasos.size(); i++) {
-			pasos += listPasos.get(i).toString();
+			listString[i][0] = String.valueOf(listPasos.get(i).getId());
+			listString[i][1] = listPasos.get(i).getCodigo();
+			listString[i][2] = listPasos.get(i).getNombre();
+			listString[i][3] = listPasos.get(i).getDescripcion();
+			listString[i][4] = listPasos.get(i).getFechaInicio();
+			listString[i][5] = listPasos.get(i).getFechaFin();
 		}
 		
-		return pasos;
+		return listString;
 	}
 
 	public String registrarEmpleado(String ced, String nom1, String nom2, String ape1, String ape2, String correo,
