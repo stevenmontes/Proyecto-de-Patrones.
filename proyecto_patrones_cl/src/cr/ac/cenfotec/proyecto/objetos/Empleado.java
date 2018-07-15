@@ -108,5 +108,19 @@ public class Empleado {
 		this.clave = clave;
 	}
 	
+	public String toString() {
+		return "----------------------------------------- \n" + 
+				"Cedula: " + getCedula() + "\n" +
+				"Primer nombre: " + getPrimerNombre() + "\n" + 
+				"Segundo nombre: " + getSegundoNombre() + "\n" +
+				"Primer apellido: " + getPrimerApellido() + "\n" + 
+				"Segundo apellido: " + getSegundoApellido() + "\n" + 
+				"Correo: " + getCorreo() + "\n" + 
+				"Usuario: " + getUsuario() + "\n" + 
+				"Rol: " + getRol() + "\n" + 
+				"Area funcional: " + getAreaFuncional().getNombre() + "\n" +
+				"----------------------------------------- \n";
+	}
+	
 	
 }

@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import cr.ac.cenfotec.proyecto.conexion.Conector;
+import cr.ac.cenfotec.proyecto.objetos.Departamento;
 import cr.ac.cenfotec.proyecto.objetos.Empleado;
 
 public class MultiEmpleado {
@@ -25,7 +26,7 @@ public class MultiEmpleado {
 				info[3] = conexion.getString("id_area_funcional");
 			}
 			
-		} catch (Exception ex) {
+		} catch (Exception error) {
 			info[0] = "El nombre del usuario o clave no coinciden entre si.";
 		}
 		
@@ -39,8 +40,8 @@ public class MultiEmpleado {
 		try {
 			Conector.getConector().ejecutarSQL(consulta, true);
 			result = "Se ha registrado exitosamente el empleado.";
-		} catch (Exception ex) {
-			result = "No se pudo registrar el empleado. Vuelve a intentarlo." + ex.getMessage();
+		} catch (Exception error) {
+			result = "No se pudo registrar el empleado. Vuelve a intentarlo." + error.getMessage();
 		}
 		
 		return result;
@@ -53,7 +54,7 @@ public class MultiEmpleado {
 		try {
 			Conector.getConector().ejecutarSQL(consulta, true);
 			result = "Se ha modificado exitosamente el empleado.";
-		} catch (Exception ex) {
+		} catch (Exception error) {
 			result = "No se pudo modificar el empleado. Vuelve a intentarlo.";
 		}
 		
@@ -62,22 +63,25 @@ public class MultiEmpleado {
 	
 	public ArrayList<Empleado> listarTodosEmpleados() throws Exception{
 		ArrayList<Empleado> lista = new ArrayList<>();
-        String consulta = "{Call dbo.pa_listar_empleado }";
+        String consulta = "{Call dbo.pa_listar_empleados}";
 
         try {
         	ResultSet conexion = Conector.getConector().ejecutarSQL(consulta, true);
         	
         	while(conexion.next()) {
-        		Empleado Ex = new Empleado(conexion.getString("cedula"), conexion.getString("primer_nombre"), 
+        		Empleado nuevoEmpleado = new Empleado(conexion.getString("cedula"), conexion.getString("primer_nombre"), 
         								 conexion.getString("segundo_nombre"), conexion.getString("primer_apellido"), 
         								 conexion.getString("segundo_apellido"), conexion.getString("correo"),
         								 conexion.getString("usuario"), conexion.getString("clave"), 
         								 conexion.getString("rol"));
-        		lista.add(Ex);
+        		Departamento area = new Departamento();
+        		area.setNombre(conexion.getString("nombre"));
+        		nuevoEmpleado.setAreaFuncional(area);
+        		lista.add(nuevoEmpleado);
         	}
 
-        } catch (Exception ex) {
-        	throw ex;
+        } catch (Exception error) {
+        	throw error;
         }
 
         return lista;
@@ -94,7 +98,7 @@ public class MultiEmpleado {
                 	lista.add(conexion.getString("cedula"));
                 }
 
-        } catch (Exception ex) {
+        } catch (Exception error) {
         }
 
         return lista;
