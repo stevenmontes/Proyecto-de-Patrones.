@@ -139,6 +139,17 @@ public class Controlador {
 		usuario.setAreaFuncional(area);
 		return empleado.modificarEmpleado(usuario);
 	}
+	
+	public String[] listarEmpleado() throws Exception{
+		ArrayList<Empleado> listEmpleado = empleado.listarTodosEmpleados();
+		String[] infoEmpleados = new String[listEmpleado.size()];
+		
+		for(int i = 0; i < listEmpleado.size(); i++) {
+			infoEmpleados[i] = listEmpleado.get(i).toString();
+		}
+		
+		return infoEmpleados;
+	}
 
 	public String registrarArea(String codigo, String nombre, String descripcion) {
 		Departamento E = new Departamento(codigo, nombre, descripcion);

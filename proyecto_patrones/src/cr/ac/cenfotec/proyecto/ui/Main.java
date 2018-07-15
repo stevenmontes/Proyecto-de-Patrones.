@@ -13,7 +13,7 @@ public class Main {
 	static String[] usuario;
 	static Controlador controlador = new Controlador();
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		solicitarInicioSesion();
 		mostrarMenuPrincipal();
 	}
@@ -45,7 +45,7 @@ public class Main {
 		return Integer.parseInt(leer.readLine());
 	}
 
-	public static boolean mostrarMenuPrincipal() throws IOException {
+	public static boolean mostrarMenuPrincipal() throws Exception {
 		boolean salir = false;
 		int area = Integer.parseInt(usuario[3]);
 
@@ -77,7 +77,7 @@ public class Main {
 		return salir;
 	}
 
-	public static boolean mainAdmin() throws IOException {
+	public static boolean mainAdmin() throws Exception {
 		boolean salir = false;
 		int opcion;
 
@@ -106,7 +106,7 @@ public class Main {
 		}
 	}
 
-	public static boolean mainAdminOpciones(int opcion) throws IOException {
+	public static boolean mainAdminOpciones(int opcion) throws Exception {
 		boolean salir = false;
 
 		switch (opcion) {
@@ -314,6 +314,7 @@ public class Main {
 
 	public static void modificarTarea() throws IOException {
 		String codigoTarea, nombre, descripcion, codigoDep;
+
 		codigoTarea = solicitarDatoString("Digite el c\u00f3digo de la tarea a modificar");
 		
 		if (!isValidarCodigoTarea(codigoTarea)) {
@@ -326,6 +327,7 @@ public class Main {
 			} else {
 				nombre = solicitarDatoString("Digite el nuevo nombre de la tarea");
 				descripcion = solicitarDatoString("Digite la nueva descripci\u00f3n de la tarea");
+
 				imprimir.println(controlador.modificarTarea(codigoTarea, nombre, descripcion, codigoDep));
 			}
 
@@ -390,7 +392,7 @@ public class Main {
 		imprimir.println("7. Salir");
 	}
 
-	public static void mainAdminListar() throws IOException {
+	public static void mainAdminListar() throws Exception {
 		boolean salir = false;
 		int opcion;
 
@@ -401,7 +403,7 @@ public class Main {
 		}
 	}
 
-	public static boolean seleccionarOpcionListar(int opcion) throws IOException {
+	public static boolean seleccionarOpcionListar(int opcion) throws Exception {
 		boolean salir = false;
 
 		switch (opcion) {
@@ -419,6 +421,7 @@ public class Main {
 			listarPasos();
 			break;
 		case 5:
+			listarEmpleados();
 			break;
 		case 6:
 			break;
@@ -454,7 +457,7 @@ public class Main {
 		}
 	}
 	
-	private static void listarPasos() throws IOException {
+	public static void listarPasos() throws IOException {
 		String codTarea = obtenerCodigoTarea();
 		String[][] infoPasos = controlador.listarPaso(codTarea);
 		
@@ -467,6 +470,14 @@ public class Main {
 			imprimir.println("Fecha de inicio: " + infoPasos[i][4]);
 			imprimir.println("Fecha de cierre: " + infoPasos[i][5]);
 			imprimir.println("-----------------------------------------");
+		}
+	}
+	
+	public static void listarEmpleados() throws Exception {
+		String[] infoEmpleados = controlador.listarEmpleado();
+		
+		for(int i = 0; i < infoEmpleados.length; i++) {
+			imprimir.println(infoEmpleados[i]);
 		}
 	}
 
