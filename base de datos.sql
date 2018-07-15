@@ -93,8 +93,7 @@ AS
 		BEGIN TRANSACTION
 			SELECT cedula, primer_nombre, primer_apellido, id_area_funcional 
 			FROM templeado 
-			WHERE @usuario = usuario
-			AND @clave = clave
+			WHERE @usuario = usuario AND @clave = clave
 		COMMIT TRANSACTION
 	END TRY
 	BEGIN CATCH
@@ -308,7 +307,7 @@ ALTER PROCEDURE pa_obtener_paso
 		ON t.id_area_funcional = a.id
 		WHERE t.id_proceso = @id_proceso
 
-CREATE PROCEDURE pa_listar_pasos
+ALTER PROCEDURE pa_listar_pasos
 	@codigo_tarea VARCHAR(50)
 	AS
 	DECLARE @id_tarea INT
@@ -317,11 +316,16 @@ CREATE PROCEDURE pa_listar_pasos
 	FROM ttarea
 	WHERE codigo = @codigo_tarea
 
-	SELECT p.id, p.codigo, p.nombre, p.descripcion, p.respuesta, p.estado, e.primer_nombre, p.fecha_inicio, p.fecha_fin
+	SELECT p.id, p.codigo, p.nombre, p.descripcion, p.fecha_inicio, p.fecha_fin
 	FROM tpaso AS p 
-	INNER JOIN templeado AS e
-	ON p.id_empleado = e.id
-	WHERE id_tarea = @id_tarea
+	WHERE p.id_tarea = @id_tarea
+
+	ALTER PROCEDURE pa_listar_empleados
+	AS
+	SELECT e.cedula, e.primer_nombre, e.segundo_nombre, e.primer_apellido, e.segundo_apellido, e.correo, e.usuario, e.clave, e.rol, a.nombre
+	FROM templeado AS e
+	INNER JOIN tarea_funcional AS a
+	ON e.id_area_funcional = a.id
 	
 	
 	create procedure pa_listarProcesosActivos
@@ -332,3 +336,5 @@ CREATE PROCEDURE pa_listar_pasos
 	create procedure pa_listarProcesosCompleto
 	as
 	select * from tproceso where estado='Completado'
+
+	
