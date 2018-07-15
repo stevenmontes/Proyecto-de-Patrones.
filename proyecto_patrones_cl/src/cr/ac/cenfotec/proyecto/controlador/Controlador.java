@@ -63,20 +63,15 @@ public class Controlador {
 		return sistema.modificarTramite(proceso);
 	}
 
-	public String[][] listarTramite() {
-		ArrayList<Tramite> ALT = sistema.listarTramites();
-		String[][] MT = new String[ALT.size()][6];
+	public String[] listarTramite() {
+		ArrayList<Tramite> listProcesos = sistema.listarTramites();
+		String[] infoProcesos = new String[listProcesos.size()];
 
-		for (int i = 0; i < ALT.size(); i++) {
-			MT[i][0] = ALT.get(i).getCodigo();
-			MT[i][1] = ALT.get(i).getNombre();
-			MT[i][2] = ALT.get(i).getDescripcion();
-			MT[i][3] = ALT.get(i).getFechaInicio();
-			MT[i][4] = ALT.get(i).getFechaFin();
-			MT[i][5] = ALT.get(i).getEstado();
+		for (int i = 0; i < listProcesos.size(); i++) {
+			infoProcesos[i] = listProcesos.get(i).toString();
 		}
 
-		return MT;
+		return infoProcesos;
 	}
 
 	public String registrarTarea(String codigo, String nombre, String descripcion, String dep, String pro) {
@@ -108,17 +103,12 @@ public class Controlador {
 		return pasos.modificarPaso(pasoNuevo);
 	}
 	
-	public String[][] listarPaso(String codTarea) {
+	public String[] listarPaso(String codTarea) {
 		ArrayList<Paso> listPasos = pasos.listarPasos(codTarea);
-		String [][] listString = new String[listPasos.size()][6];
+		String [] listString = new String[listPasos.size()];
 		
 		for(int i = 0; i < listPasos.size(); i++) {
-			listString[i][0] = String.valueOf(listPasos.get(i).getId());
-			listString[i][1] = listPasos.get(i).getCodigo();
-			listString[i][2] = listPasos.get(i).getNombre();
-			listString[i][3] = listPasos.get(i).getDescripcion();
-			listString[i][4] = listPasos.get(i).getFechaInicio();
-			listString[i][5] = listPasos.get(i).getFechaFin();
+			listString[i] = listPasos.get(i).toString();
 		}
 		
 		return listString;

@@ -108,4 +108,15 @@ public class Tramite {
 		listaTareas.add(nueva);
 	}
 	
+	public String toString() {
+		return "----------------------------------------- \n" + 
+				"Codigo: " + getCodigo() + "\n" + 
+				"Nombre: " + getNombre() + "\n" +
+				"Descripcion: " + getDescripcion() + "\n" + 
+				"Fecha inicio: " + getFechaInicio() + "\n" + 
+				"Fecha fin: " + getFechaFin() + "\n" +
+				"Estado: " + getEstado() + "\n" + 
+				"----------------------------------------- \n";
+	}
+	
 }
