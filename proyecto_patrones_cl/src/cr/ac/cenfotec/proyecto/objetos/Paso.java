@@ -128,9 +128,14 @@ public class Paso {
 
 	@Override
 	public String toString() {
-		return "Paso: " + "\n" + "ID:" + id + "\n" +"Codigo:" + codigo + "\n" + "Nombre:" + nombre + "\n" + "Descripcion:" + descripcion
-				+ "\n" + "Estado:" + estado + "\n" + "Fecha inicio:"
-				+ fechaInicio + "\n" + "Fecha fin:" + fechaFin;		
+		return "----------------------------------------- \n" + 
+				"ID: " + getId() + "\n" +
+				"Codigo: " + getCodigo() + "\n" + 
+				"Nombre: " + getNombre() + "\n" +
+				"Descripcion: " + getDescripcion() + "\n" + 
+				"Fecha inicio: " + getFechaInicio() + "\n" + 
+				"Fecha fin: " + getFechaFin() + "\n" +
+				"----------------------------------------- \n";	
 	}
 	
 	

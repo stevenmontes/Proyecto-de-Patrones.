@@ -434,18 +434,12 @@ public class Main {
 	}
 
 	public static void listarProcesos() {
-		String[][] infoProceso = controlador.listarTramite();
-
-		for (int i = 0; i < infoProceso.length; i++) {
-			imprimir.println("-----------------------------------------");
-			imprimir.println("C\u00f3digo: " + infoProceso[i][0]);
-			imprimir.println("Nombre: " + infoProceso[i][1]);
-			imprimir.println("Descripci\u00f3n: " + infoProceso[i][2]);
-			imprimir.println("Fecha de inicio: " + infoProceso[i][3]);
-			imprimir.println("Fecha de cierre: " + infoProceso[i][4]);
-			imprimir.println("Estado: " + infoProceso[i][5]);
-			imprimir.println("-----------------------------------------");
+		String[] infoProceso = controlador.listarTramite();
+		
+		for(int i = 0; i < infoProceso.length; i++) {
+			imprimir.println(infoProceso[i]);
 		}
+
 	}
 
 	public static void listarTareas() throws IOException {
@@ -459,17 +453,10 @@ public class Main {
 	
 	public static void listarPasos() throws IOException {
 		String codTarea = obtenerCodigoTarea();
-		String[][] infoPasos = controlador.listarPaso(codTarea);
+		String[] infoPasos = controlador.listarPaso(codTarea);
 		
 		for(int i = 0; i < infoPasos.length; i++) {
-			imprimir.println("-----------------------------------------");
-			imprimir.println("ID: " + infoPasos[i][0]);
-			imprimir.println("C\u00f3digo: " + infoPasos[i][1]);
-			imprimir.println("Nombre: " + infoPasos[i][2]);
-			imprimir.println("Descripci\u00f3n: " + infoPasos[i][3]);
-			imprimir.println("Fecha de inicio: " + infoPasos[i][4]);
-			imprimir.println("Fecha de cierre: " + infoPasos[i][5]);
-			imprimir.println("-----------------------------------------");
+			imprimir.println(infoPasos[i]);
 		}
 	}
 	
