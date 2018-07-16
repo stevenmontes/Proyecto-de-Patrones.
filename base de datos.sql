@@ -337,4 +337,8 @@ ALTER PROCEDURE pa_listar_pasos
 	as
 	select * from tproceso where estado='Completado'
 
-	
+	CREATE PROCEDURE pa_listar_areas_funcionales
+	AS
+	SELECT codigo, nombre, descripcion
+	FROM tarea_funcional
+	GO

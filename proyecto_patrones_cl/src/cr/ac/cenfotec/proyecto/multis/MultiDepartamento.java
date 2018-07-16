@@ -17,7 +17,7 @@ public class MultiDepartamento {
 
         try {
                 Conector.getConector().ejecutarSQL(consulta);
-                resultado = "El departamento se registró correctamente en el sistema.";
+                resultado = "El departamento se registro correctamente en el sistema.";
 
         } catch (Exception ex) {
                 resultado = "No se pudo registrar el departamento, intentelo de nuevo " + ex.getMessage();
@@ -58,5 +58,28 @@ public class MultiDepartamento {
         }
 
         return lista;
+	}
+
+	public ArrayList<Departamento> listarAreas() {
+		ArrayList<Departamento> listaAreas = new ArrayList<>();
+        String consulta = "{Call dbo.pa_listar_areas_funcionales}";
+
+        try {
+        	ResultSet conexion = Conector.getConector().ejecutarSQL(consulta, true);
+        	
+        	while(conexion.next()) {
+        		Departamento miArea = new Departamento();
+        		miArea.setCodigo(conexion.getString("codigo"));
+        		miArea.setNombre(conexion.getString("nombre"));
+        		miArea.setDescripcion(conexion.getString("descripcion"));
+        		
+        		listaAreas.add(miArea);
+        	}
+
+        } catch (Exception error) {
+ 
+        }
+
+        return listaAreas;
 	}
 }
