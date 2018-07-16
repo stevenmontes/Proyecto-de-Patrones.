@@ -43,5 +43,9 @@ public class Departamento {
 		this.descripcion = descripcion;
 	}
 	
+	@Override
+	public String toString() {
+		return "Departamento: \nCodigo: " + codigo + "\nNombre: " + nombre + "\nDescripcion: " + descripcion + "\n";
+	}
 	
 }

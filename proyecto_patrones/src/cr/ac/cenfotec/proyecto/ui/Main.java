@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 import cr.ac.cenfotec.proyecto.controlador.Controlador;
+import cr.ac.cenfotec.proyecto.objetos.Departamento;
 import cr.ac.cenfotec.proyecto.objetos.Tarea;
 
 public class Main {
@@ -424,6 +425,7 @@ public class Main {
 			listarEmpleados();
 			break;
 		case 6:
+			listarAreasFuncionales();
 			break;
 		case 7:
 			salir = true;
@@ -431,6 +433,13 @@ public class Main {
 		}
 
 		return salir;
+	}
+
+	private static void listarAreasFuncionales() {
+		for (Departamento var : controlador.listarAreas()) {
+			imprimir.println(var.toString());
+		}
+		
 	}
 
 	public static void listarProcesos() {

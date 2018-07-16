@@ -20,6 +20,7 @@ public class Controlador {
 		return empleado.iniciarSesion(usuario, clave);
 	}
 
+	//Códigos
 	public ArrayList<String> codidosEmpleados() {
 		return empleado.obtenerCodigos();
 	}
@@ -53,6 +54,7 @@ public class Controlador {
 		return Ex;
 	}
 
+	//Trámites
 	public String registrarTramite(String codigo, String nombre, String descripcion) {
 		Tramite proceso = new Tramite(codigo, nombre, descripcion);
 		return sistema.registrarTramite(proceso);
@@ -74,6 +76,7 @@ public class Controlador {
 		return infoProcesos;
 	}
 
+	//Tareas
 	public String registrarTarea(String codigo, String nombre, String descripcion, String dep, String pro) {
 		Departamento area = new Departamento(dep);
 		Tarea as = new Tarea(codigo, nombre, descripcion);
@@ -93,6 +96,7 @@ public class Controlador {
 		return listaTareas;
 	}
 
+	//Pasos
 	public String registrarPaso(String codigo, String nombre, String descripcion, String codTarea) {
 		Paso pasoNuevo = new Paso(codigo, nombre, descripcion);
 		return pasos.registrarPaso(pasoNuevo, codTarea);
@@ -114,6 +118,7 @@ public class Controlador {
 		return listString;
 	}
 
+	//Empleados
 	public String registrarEmpleado(String ced, String nom1, String nom2, String ape1, String ape2, String correo,
 			String nomU, String clave, String rol, String codArea) {
 		Departamento area = new Departamento(codArea);
@@ -141,6 +146,7 @@ public class Controlador {
 		return infoEmpleados;
 	}
 
+	//Áreas Funcionales
 	public String registrarArea(String codigo, String nombre, String descripcion) {
 		Departamento E = new Departamento(codigo, nombre, descripcion);
 		return area_funcional.registrarDepartamento(E);
@@ -149,6 +155,12 @@ public class Controlador {
 	public String modificarArea(String codigo, String nombre, String descripcion) {
 		Departamento E = new Departamento(codigo, nombre, descripcion);
 		return area_funcional.modificarDepartamento(E);
+	}
+	
+	public ArrayList<Departamento> listarAreas() {
+		ArrayList<Departamento> areas = area_funcional.listarAreas();
+		
+		return areas;
 	}
 
 	public ArrayList<String> obtenerDescripcionPaso(String id_area) {
@@ -168,4 +180,5 @@ public class Controlador {
 
 		return nombrePasos;
 	}
+
 }
