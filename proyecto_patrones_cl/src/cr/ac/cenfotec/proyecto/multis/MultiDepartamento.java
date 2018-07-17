@@ -82,4 +82,43 @@ public class MultiDepartamento {
 
         return listaAreas;
 	}
+
+	public String modificarEstado(String codigo) {
+		String estado = null, mensaje = null;
+		
+		try {
+			ResultSet conexion = Conector.getConector().ejecutarSQL("SELECT * FROM tarea_funcional WHERE codigo = '" + codigo + "';", true);
+			while (conexion.next()) {
+				estado = conexion.getString("estado");
+			}
+		} catch (Exception e) {
+			
+		}
+		
+		if (estado == null) {
+			return "\nNo existe ningún departamento con ese código";
+		}
+		
+		if (estado.equals("0")) {
+			try {
+				Conector.getConector().ejecutarSQL("UPDATE tarea_funcional SET estado = 1 WHERE codigo = '" + codigo + "';");
+				mensaje = "\nSe ha modificado el departamento de inactivo a activo";
+			} catch (Exception e) {
+				return e.getMessage();
+			}
+			
+		}
+		
+		if (estado.equals("1")) {
+			try {
+				Conector.getConector().ejecutarSQL("UPDATE tarea_funcional SET estado = 0 WHERE codigo = '" + codigo + "';");
+				mensaje = "\nSe ha modificado el departamento de activo a inactivo";
+			} catch (Exception e) {
+				return e.getMessage();
+			}
+			
+		}
+		
+		return mensaje;
+	}
 }

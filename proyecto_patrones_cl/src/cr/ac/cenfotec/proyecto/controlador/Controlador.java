@@ -162,6 +162,12 @@ public class Controlador {
 		
 		return areas;
 	}
+	
+	public String modificarEstadoDepartamento(String codigo) {
+		return area_funcional.modificarEstado(codigo);
+		
+	}
+	
 
 	public ArrayList<String> obtenerDescripcionPaso(String id_area) {
 		ArrayList<String> idsTareas = tarea.obtenerIdTarea(id_area);

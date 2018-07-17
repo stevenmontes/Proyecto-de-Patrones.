@@ -260,7 +260,8 @@ public class Main {
 		imprimir.println("3. Modificar pasos");
 		imprimir.println("4. Modificar empleados");
 		imprimir.println("5. Modificar \u00e1reas funcionales");
-		imprimir.println("6. Salir");
+		imprimir.println("6. Modificar estado \u00e1rea funcional");
+		imprimir.println("7. Salir");
 	}
 
 	public static void mainAdminModificar() throws IOException {
@@ -294,11 +295,20 @@ public class Main {
 			modificarArea();
 			break;
 		case 6:
+			modificarEstadoArea();
+		case 7:
 			salir = true;
 			break;
 		}
 
 		return salir;
+	}
+
+	private static void modificarEstadoArea() throws IOException {
+		imprimir.println("Digite el código del departamento al que desea cambiarle el estado");
+		String codigo = leer.readLine();
+		
+		imprimir.println(controlador.modificarEstadoDepartamento(codigo));
 	}
 
 	public static void modificarProceso() throws IOException {
