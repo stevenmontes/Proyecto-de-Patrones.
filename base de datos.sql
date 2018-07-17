@@ -342,3 +342,7 @@ ALTER PROCEDURE pa_listar_pasos
 	SELECT codigo, nombre, descripcion
 	FROM tarea_funcional
 	GO
+
+	ALTER TABLE tarea_funcional
+	ADD estado CHAR(1)
+	GO
