@@ -414,78 +414,69 @@ public class Main {
 		}
 	}
 
-	public static boolean seleccionarOpcionListar(int opcion) throws Exception {
+	public static String[] obtenerLista(int opcion,String codigo) throws Exception {
 		boolean salir = false;
-
+		String [] listaObjeto=null;
 		switch (opcion) {
 		case 0:
-			listarProcesos();
+			listaObjeto=controlador.listarTramite();
 			break;
 		case 1:
+			listaObjeto=controlador.listarProcesosActivos();
 			break;
 		case 2:
+			listaObjeto=controlador.listarProcesosCompletos();
 			break;
 		case 3:
-			listarTareas();
+			listaObjeto=controlador.listarTareas(codigo);
 			break;
 		case 4:
-			listarPasos();
+			listaObjeto=controlador.listarPaso(codigo);
 			break;
 		case 5:
-			listarEmpleados();
+			listaObjeto=controlador.listarEmpleado();
 			break;
 		case 6:
-			listarAreasFuncionales();
+			listaObjeto=controlador.listarAreas();
 			break;
-		case 7:
-			salir = true;
+		default:
+		imprimir.println("Lo sentimos esa opci\u00f3n no est&aacute dentro del  men&uacute");;
 			break;
 		}
 
+		return listaObjeto;
+	}
+
+
+
+	public static boolean seleccionarOpcionListar(int opcion) throws Exception {
+		String[] info=null; 
+		String codigo=null;
+		 info = obtenerProcesoOTarea(opcion);
+		boolean salir = false;
+		for(int i = 0; i < info.length; i++) {
+			imprimir.println(info[i]);
+		}
+		salir=true;
 		return salir;
-	}
 
-	private static void listarAreasFuncionales() {
-		for (Departamento var : controlador.listarAreas()) {
-			imprimir.println(var.toString());
-		}
+}
+
+	private static String[] obtenerProcesoOTarea(int opcion) throws IOException, Exception {
+		String[] info;
+		String codigo;
+		if(opcion==3) { 
+		 codigo=obtenerCodigoProceso();
+		 info = obtenerLista(opcion,codigo);}
+		if(opcion==4) {
+	     codigo=obtenerCodigoTarea();
+		 info = obtenerLista(opcion,codigo);}			 
+		 else { 
+	    info = obtenerLista(opcion,"");}
 		
+		return info;
 	}
 
-	public static void listarProcesos() {
-		String[] infoProceso = controlador.listarTramite();
-		
-		for(int i = 0; i < infoProceso.length; i++) {
-			imprimir.println(infoProceso[i]);
-		}
-
-	}
-
-	public static void listarTareas() throws IOException {
-		String ct = obtenerCodigoProceso();
-		ArrayList<Tarea> lista = controlador.listarTareas(ct);
-
-		for (Tarea t : lista) {
-			imprimir.println(t.toString());
-		}
-	}
-	
-	public static void listarPasos() throws IOException {
-		String codTarea = obtenerCodigoTarea();
-		String[] infoPasos = controlador.listarPaso(codTarea);
-		
-		for(int i = 0; i < infoPasos.length; i++) {
-			imprimir.println(infoPasos[i]);
-		}
-	}
-	
-	public static void listarEmpleados() throws Exception {
-		String[] infoEmpleados = controlador.listarEmpleado();
-		
-		for(int i = 0; i < infoEmpleados.length; i++) {
-			imprimir.println(infoEmpleados[i]);
-		}
-	}
 
 	public static String obtenerCodigoProceso() throws IOException {
 		String codProceso = "";

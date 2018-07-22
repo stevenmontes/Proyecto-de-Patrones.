@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="proyecto_patrones/lib/guava-19.0.jar"/>
 	<classpathentry kind="lib" path="proyecto_patrones/lib/logica.jar"/>
 	<classpathentry kind="lib" path="proyecto_patrones/lib/sqljdbc42.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Usuario/Desktop/Patrones/jars/junit-4.12.jar"/>
 	<classpathentry kind="output" path="proyecto_patrones/bin"/>
 </classpath>

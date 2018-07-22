@@ -20,7 +20,7 @@ public class Controlador {
 		return empleado.iniciarSesion(usuario, clave);
 	}
 
-	//Códigos
+	//CÃ³digos
 	public ArrayList<String> codidosEmpleados() {
 		return empleado.obtenerCodigos();
 	}
@@ -54,7 +54,7 @@ public class Controlador {
 		return Ex;
 	}
 
-	//Trámites
+	//TrÃ¡mites
 	public String registrarTramite(String codigo, String nombre, String descripcion) {
 		Tramite proceso = new Tramite(codigo, nombre, descripcion);
 		return sistema.registrarTramite(proceso);
@@ -75,6 +75,25 @@ public class Controlador {
 
 		return infoProcesos;
 	}
+	
+	
+	public String[] listarProcesosActivos() {
+				ArrayList<Tramite> lisPA = sistema.obtenerProcesosActivos();
+				String[] listaPA = new String[lisPA.size()];		
+				for (int i = 0; i < lisPA.size(); i++) {
+					listaPA[i]=lisPA.get(i).toString();
+				}
+				return listaPA;
+			}
+		
+			public String[] listarProcesosCompletos() {
+		      ArrayList<Tramite>lisPC=sistema.obtenerProcesosCompletado();
+				String [] listaPC=new String[lisPC.size()];
+				for (int i = 0; i < lisPC.size(); i++) {
+					listaPC[i]=lisPC.get(i).toString();
+				}
+					return listaPC;
+				}
 
 	//Tareas
 	public String registrarTarea(String codigo, String nombre, String descripcion, String dep, String pro) {
@@ -91,9 +110,15 @@ public class Controlador {
 		return tarea.modificarTarea(as);
 	}
 
-	public ArrayList<Tarea> listarTareas(String codigo) {
+	public String[] listarTareas(String codigo) {
 		ArrayList<Tarea> listaTareas = tarea.listarTareas(codigo);
-		return listaTareas;
+		String [] listString = new String[listaTareas.size()];
+		
+		for(int i = 0; i < listaTareas.size(); i++) {
+			listString[i] = listaTareas.get(i).toString();
+		}
+		
+		return listString;
 	}
 
 	//Pasos
@@ -146,7 +171,7 @@ public class Controlador {
 		return infoEmpleados;
 	}
 
-	//Áreas Funcionales
+	//Ã�reas Funcionales
 	public String registrarArea(String codigo, String nombre, String descripcion) {
 		Departamento E = new Departamento(codigo, nombre, descripcion);
 		return area_funcional.registrarDepartamento(E);
@@ -157,10 +182,14 @@ public class Controlador {
 		return area_funcional.modificarDepartamento(E);
 	}
 	
-	public ArrayList<Departamento> listarAreas() {
+	public String[] listarAreas() {
 		ArrayList<Departamento> areas = area_funcional.listarAreas();
 		
-		return areas;
+	String []infoAreas=new String [areas.size()];
+		for(int i=0;i>areas.size();i++) {
+			infoAreas[i]=areas.get(i).toString();			
+		}
+		return infoAreas;
 	}
 	
 	public String modificarEstadoDepartamento(String codigo) {
