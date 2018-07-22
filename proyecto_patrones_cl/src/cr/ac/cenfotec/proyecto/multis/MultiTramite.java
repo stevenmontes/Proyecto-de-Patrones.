@@ -65,26 +65,47 @@ public class MultiTramite {
         return lista;
 	}
 	
-	public ArrayList<Tramite> listarTramiteCompletadas(){
-		ArrayList<Tramite> lista = new ArrayList<>();
-        String consulta = "{Call dbo.pa_listar_proceso_completada }";
-
-        try {
-        	ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
-        	
-        	while(rs.next()) {
-        		Tramite Ex = new Tramite(rs.getString("codigo"), rs.getString("nombre"), 
-        								 rs.getString("fecha_inicio"), rs.getString("fecha_fin"), 
-        								 rs.getString("descripcion"), rs.getString("estado"));
-        		lista.add(Ex);
-        	}
-
-        } catch (Exception ex) {
-        	
-        }
-
-        return lista;
-	}	
+	public ArrayList<Tramite> obtenerProcesosActivos(){
+			ArrayList<Tramite> lista = new ArrayList<>();
+		        String consulta = "{Call dbo.pa_listarProcesosActivos }";
+		
+		        try {
+		        	ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
+		        	
+	        	while(rs.next()) {
+		        		Tramite Ex = new Tramite(rs.getString("codigo"), rs.getString("nombre"), 
+		        								 rs.getString("fecha_inicio"), rs.getString("fecha_fin"), 
+		        								 rs.getString("descripcion"), rs.getString("estado"));
+		        		lista.add(Ex);
+	        	}
+		
+		        } catch (Exception ex) {
+		        	
+		        }
+		
+		        return lista;
+				}
+		
+			public ArrayList<Tramite> obtenerProcesosCompletado() {
+				ArrayList<Tramite> lista = new ArrayList<>();
+		        String consulta = "{Call dbo.pa_listarProcesosCompleto }";
+		
+		        try {
+		        	ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
+		        	
+		        	while(rs.next()) {
+		        		Tramite Ex = new Tramite(rs.getString("codigo"), rs.getString("nombre"), 
+		        								 rs.getString("fecha_inicio"), rs.getString("fecha_fin"), 
+		        								 rs.getString("descripcion"), rs.getString("estado"));
+		        		lista.add(Ex);
+		        	}
+		
+		        } catch (Exception ex) {
+		        	
+		        }
+		
+		        return lista;
+			}
 	
 	public ArrayList<String> obtenerCodigos(){
         String consulta = "{Call dbo.pa_obtener_codigos_procesos}";
