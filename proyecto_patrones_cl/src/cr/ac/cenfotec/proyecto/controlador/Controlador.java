@@ -53,15 +53,29 @@ public class Controlador {
 		return Ex;
 	}
 
-	public String registrarTramite(String codigo, String nombre, String descripcion) {
-		Tramite proceso = new Tramite(codigo, nombre, descripcion);
-		return sistema.registrarTramite(proceso);
+	public String registrarTarea(String codigo, String nombre, String descripcion, String dep, String pro) {
+		Departamento area = new Departamento(dep);
+
+		Tarea as;
+		TareaBuilder builder = new Tarea.TareaBuilder(codigo, nombre, descripcion);
+		builder = builder.withAreaEncargada(area).withPasos().withEstado("en proceso");
+		as = builder.createTarea();
+
+		return tarea.registrarTarea(as, pro);
 	}
 
-	public String modificarTramite(String codigo, String nombre, String descripcion) {
-		Tramite proceso = new Tramite(codigo, nombre, descripcion);
-		return sistema.modificarTramite(proceso);
+	public String modificarTarea(String codigo, String nombre, String descripcion, String dep) {
+
+		Departamento area = new Departamento(dep);
+
+		Tarea as;
+		TareaBuilder builder = new Tarea.TareaBuilder(codigo, nombre, descripcion);
+		builder = builder.withAreaEncargada(area).withPasos().withEstado("en proceso");
+		as = builder.createTarea();
+
+		return tarea.modificarTarea(as);
 	}
+
 
 	public String[][] listarTramite() {
 		ArrayList<Tramite> ALT = sistema.listarTramites();
