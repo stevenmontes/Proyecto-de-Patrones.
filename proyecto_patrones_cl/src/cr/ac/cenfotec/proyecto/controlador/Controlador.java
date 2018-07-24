@@ -98,15 +98,24 @@ public class Controlador {
 	//Tareas
 	public String registrarTarea(String codigo, String nombre, String descripcion, String dep, String pro) {
 		Departamento area = new Departamento(dep);
-		Tarea as = new Tarea(codigo, nombre, descripcion);
-		as.setAreaEncargada(area);
+
+		Tarea as;
+		TareaBuilder builder = new Tarea.TareaBuilder(codigo, nombre, descripcion);
+		builder = builder.withAreaEncargada(area).withPasos().withEstado("en proceso");
+		as = builder.createTarea();
+
 		return tarea.registrarTarea(as, pro);
 	}
 
 	public String modificarTarea(String codigo, String nombre, String descripcion, String dep) {
+
 		Departamento area = new Departamento(dep);
-		Tarea as = new Tarea(codigo, nombre, descripcion);
-		as.setAreaEncargada(area);
+
+		Tarea as;
+		TareaBuilder builder = new Tarea.TareaBuilder(codigo, nombre, descripcion);
+		builder = builder.withAreaEncargada(area).withPasos().withEstado("en proceso");
+		as = builder.createTarea();
+
 		return tarea.modificarTarea(as);
 	}
 
