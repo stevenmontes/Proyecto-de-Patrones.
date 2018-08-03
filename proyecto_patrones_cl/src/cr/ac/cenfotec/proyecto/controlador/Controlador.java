@@ -95,7 +95,7 @@ public class Controlador {
 	}
 
 	public String registrarTarea(String codigo, String nombre, String descripcion, String dep, String pro) {
-		Departamento area = fabrica.crearDepartamento(codigo);
+		Departamento area = fabrica.crearDepartamento(dep);
 
 		Tarea as;
 		TareaBuilder builder = new Tarea.TareaBuilder(codigo, nombre, descripcion);
@@ -107,7 +107,7 @@ public class Controlador {
 
 	public String modificarTarea(String codigo, String nombre, String descripcion, String dep) {
 
-		Departamento area = fabrica.crearDepartamento(codigo);
+		Departamento area = fabrica.crearDepartamento(dep);
 
 		Tarea as;
 		TareaBuilder builder = new Tarea.TareaBuilder(codigo, nombre, descripcion);
