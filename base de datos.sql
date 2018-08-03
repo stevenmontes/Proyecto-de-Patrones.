@@ -335,3 +335,30 @@ ALTER PROCEDURE pa_listar_pasos
 
 	SELECT * 
 	FROM templeado
+
+ALTER PROCEDURE pa_listar_empleados
+	AS
+	SELECT e.cedula, e.primer_nombre, e.segundo_nombre, e.primer_apellido, e.segundo_apellido, e.correo, e.usuario, e.clave, e.rol, a.nombre
+	FROM templeado AS e
+	INNER JOIN tarea_funcional AS a
+	ON e.id_area_funcional = a.id
+	
+	
+	create procedure pa_listarProcesosActivos
+	as
+	select * from tproceso where estado='En proceso'
+	
+	
+	create procedure pa_listarProcesosCompleto
+	as
+	select * from tproceso where estado='Completado'
+
+	CREATE PROCEDURE pa_listar_areas_funcionales
+	AS
+	SELECT codigo, nombre, descripcion
+	FROM tarea_funcional
+	GO
+
+	ALTER TABLE tarea_funcional
+	ADD estado CHAR(1)
+	GO
