@@ -61,15 +61,15 @@ public class MultiTarea {
         return lista;
 	}
 	
-	public ArrayList<String> obtenerIdTarea (String id_area) {
-        String consulta = "{Call dbo.pa_obtener_id_tarea ('"+id_area+"')}";
+	public ArrayList<String> obtenerTareasPorArea (String id_area) {
+        String consulta = "{Call dbo.pa_obtener_codigo_tarea_por_area ('"+id_area+"')}";
         ArrayList<String> relt = new ArrayList<>();
 
         try {
                 ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
                 
                 while(rs.next()) {
-                	relt.add(rs.getString("id"));
+                	relt.add(rs.getString("codigo"));
                 }
 
         } catch (Exception ex) {
