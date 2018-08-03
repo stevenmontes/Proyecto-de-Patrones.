@@ -93,7 +93,8 @@ AS
 		BEGIN TRANSACTION
 			SELECT cedula, primer_nombre, primer_apellido, id_area_funcional 
 			FROM templeado 
-			WHERE @usuario = usuario AND @clave = clave
+			WHERE @usuario = usuario
+			AND @clave = clave
 		COMMIT TRANSACTION
 	END TRY
 	BEGIN CATCH
@@ -285,10 +286,17 @@ CREATE PROCEDURE pa_obtener_id_tarea
 	FROM ttarea
 	WHERE id_area_funcional = @id_area_funcional
 
+CREATE PROCEDURE pa_obtener_codigo_tarea_por_area
+	@id_area_funcional INT
+	AS
+	SELECT codigo
+	FROM ttarea
+	WHERE id_area_funcional = @id_area_funcional
+
 ALTER PROCEDURE pa_obtener_paso
 	@id_tarea INT
 	AS 
-	SELECT nombre, descripcion
+	SELECT p.id, p.codigo, p.nombre, p.descripcion, p.respuesta, p.estado, p.fecha_inicio, p.fecha_fin  
 	FROM tpaso AS p
 	WHERE id_tarea = @id_tarea
 
@@ -316,33 +324,14 @@ ALTER PROCEDURE pa_listar_pasos
 	FROM ttarea
 	WHERE codigo = @codigo_tarea
 
-	SELECT p.id, p.codigo, p.nombre, p.descripcion, p.fecha_inicio, p.fecha_fin
+	SELECT p.id, p.codigo, p.nombre, p.descripcion, p.estado, e.primer_nombre, p.fecha_inicio, p.fecha_fin
 	FROM tpaso AS p 
-	WHERE p.id_tarea = @id_tarea
+	INNER JOIN templeado AS e
+	ON p.id_empleado = e.id
+	WHERE id_tarea = @id_tarea
 
-	ALTER PROCEDURE pa_listar_empleados
-	AS
-	SELECT e.cedula, e.primer_nombre, e.segundo_nombre, e.primer_apellido, e.segundo_apellido, e.correo, e.usuario, e.clave, e.rol, a.nombre
-	FROM templeado AS e
-	INNER JOIN tarea_funcional AS a
-	ON e.id_area_funcional = a.id
-	
-	
-	create procedure pa_listarProcesosActivos
-	as
-	select * from tproceso where estado='En proceso'
-	
-	
-	create procedure pa_listarProcesosCompleto
-	as
-	select * from tproceso where estado='Completado'
+	SELECT * 
+	FROM tpaso	
 
-	CREATE PROCEDURE pa_listar_areas_funcionales
-	AS
-	SELECT codigo, nombre, descripcion
-	FROM tarea_funcional
-	GO
-
-	ALTER TABLE tarea_funcional
-	ADD estado CHAR(1)
-	GO
+	SELECT * 
+	FROM templeado
