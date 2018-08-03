@@ -17,7 +17,7 @@ public class Fabrica {
 	}
 	
 	public Departamento crearDepartamento(String codigo, String nombre, String descripcion) {
-		return new Departamento();
+		return new Departamento(codigo, nombre, descripcion);
 	}
 	
 	public Departamento crearDepartamento(String codigo, String nombre, String descripcion, String estado) {

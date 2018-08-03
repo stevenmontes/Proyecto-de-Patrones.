@@ -201,15 +201,15 @@ public class Controlador {
 
 	}
 
-	public ArrayList<String> obtenerDescripcionPaso(String id_area) {
-		ArrayList<String> idsTareas = tarea.obtenerIdTarea(id_area);
+	public ArrayList<String> obtenerNombresPasos(String id_area) {
+		ArrayList<String> codigoTareas = tarea.obtenerTareasPorArea(id_area);
 		ArrayList<Paso> listaPasos;
 		ArrayList<String> nombrePasos = new ArrayList<>();
-		String idTarea;
+		String codigoTarea;
 
-		for (int indTarea = 0; indTarea < idsTareas.size(); indTarea++) {
-			idTarea = idsTareas.get(indTarea);
-			listaPasos = pasos.obtenerInfoPasos(idTarea);
+		for (int indTarea = 0; indTarea < codigoTareas.size(); indTarea++) {
+			codigoTarea = codigoTareas.get(indTarea);
+			listaPasos = pasos.listarPasos(codigoTarea);
 
 			for (int indPaso = 0; indPaso < listaPasos.size(); indPaso++) {
 				nombrePasos.add(listaPasos.get(indPaso).getNombre());
