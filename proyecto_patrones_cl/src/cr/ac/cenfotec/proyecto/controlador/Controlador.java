@@ -1,16 +1,18 @@
-	package cr.ac.cenfotec.proyecto.controlador;
+package cr.ac.cenfotec.proyecto.controlador;
 
 import java.util.ArrayList;
 
 import cr.ac.cenfotec.proyecto.multis.*;
 import cr.ac.cenfotec.proyecto.objetos.*;
+import cr.ac.cenfotec.proyecto.objetos.Tarea.TareaBuilder;
 
 public class Controlador {
-	static MultiEmpleado empleado = new MultiEmpleado();
-	static MultiTramite sistema = new MultiTramite();
-	static MultiTarea tarea = new MultiTarea();
-	static MultiDepartamento area_funcional = new MultiDepartamento();
-	static MultiPaso pasos = new MultiPaso();
+	static Fabrica fabrica = new Fabrica();
+	static MultiEmpleado empleado = fabrica.crearMultiEmpleado();
+	static MultiTramite sistema = fabrica.crearMultiTramite();
+	static MultiTarea tarea = fabrica.crearMultiTarea();
+	static MultiDepartamento area_funcional = fabrica.crearMultiDepartamento();
+	static MultiPaso pasos = fabrica.crearMultiPaso();
 
 	public Controlador() {
 
@@ -20,7 +22,6 @@ public class Controlador {
 		return empleado.iniciarSesion(usuario, clave);
 	}
 
-	//CÃ³digos
 	public ArrayList<String> codidosEmpleados() {
 		return empleado.obtenerCodigos();
 	}
@@ -54,14 +55,13 @@ public class Controlador {
 		return Ex;
 	}
 
-	//TrÃ¡mites
 	public String registrarTramite(String codigo, String nombre, String descripcion) {
-		Tramite proceso = new Tramite(codigo, nombre, descripcion);
+		Tramite proceso = fabrica.crearTramite(codigo, nombre, descripcion);
 		return sistema.registrarTramite(proceso);
 	}
 
 	public String modificarTramite(String codigo, String nombre, String descripcion) {
-		Tramite proceso = new Tramite(codigo, nombre, descripcion);
+		Tramite proceso = fabrica.crearTramite(codigo, nombre, descripcion);
 		return sistema.modificarTramite(proceso);
 	}
 
@@ -75,29 +75,27 @@ public class Controlador {
 
 		return infoProcesos;
 	}
-	
-	
-	public String[] listarProcesosActivos() {
-				ArrayList<Tramite> lisPA = sistema.obtenerProcesosActivos();
-				String[] listaPA = new String[lisPA.size()];		
-				for (int i = 0; i < lisPA.size(); i++) {
-					listaPA[i]=lisPA.get(i).toString();
-				}
-				return listaPA;
-			}
-		
-			public String[] listarProcesosCompletos() {
-		      ArrayList<Tramite>lisPC=sistema.obtenerProcesosCompletado();
-				String [] listaPC=new String[lisPC.size()];
-				for (int i = 0; i < lisPC.size(); i++) {
-					listaPC[i]=lisPC.get(i).toString();
-				}
-					return listaPC;
-				}
 
-	//Tareas
+	public String[] listarProcesosActivos() {
+		ArrayList<Tramite> lisPA = sistema.obtenerProcesosActivos();
+		String[] listaPA = new String[lisPA.size()];
+		for (int i = 0; i < lisPA.size(); i++) {
+			listaPA[i] = lisPA.get(i).toString();
+		}
+		return listaPA;
+	}
+
+	public String[] listarProcesosCompletos() {
+		ArrayList<Tramite> lisPC = sistema.obtenerProcesosCompletado();
+		String[] listaPC = new String[lisPC.size()];
+		for (int i = 0; i < lisPC.size(); i++) {
+			listaPC[i] = lisPC.get(i).toString();
+		}
+		return listaPC;
+	}
+
 	public String registrarTarea(String codigo, String nombre, String descripcion, String dep, String pro) {
-		Departamento area = new Departamento(dep);
+		Departamento area = fabrica.crearDepartamento(codigo);
 
 		Tarea as;
 		TareaBuilder builder = new Tarea.TareaBuilder(codigo, nombre, descripcion);
@@ -109,7 +107,7 @@ public class Controlador {
 
 	public String modificarTarea(String codigo, String nombre, String descripcion, String dep) {
 
-		Departamento area = new Departamento(dep);
+		Departamento area = fabrica.crearDepartamento(codigo);
 
 		Tarea as;
 		TareaBuilder builder = new Tarea.TareaBuilder(codigo, nombre, descripcion);
@@ -121,91 +119,87 @@ public class Controlador {
 
 	public String[] listarTareas(String codigo) {
 		ArrayList<Tarea> listaTareas = tarea.listarTareas(codigo);
-		String [] listString = new String[listaTareas.size()];
-		
-		for(int i = 0; i < listaTareas.size(); i++) {
+		String[] listString = new String[listaTareas.size()];
+
+		for (int i = 0; i < listaTareas.size(); i++) {
 			listString[i] = listaTareas.get(i).toString();
 		}
-		
+
 		return listString;
 	}
 
-	//Pasos
 	public String registrarPaso(String codigo, String nombre, String descripcion, String codTarea) {
-		Paso pasoNuevo = new Paso(codigo, nombre, descripcion);
+		Paso pasoNuevo = fabrica.crearPaso(codigo, nombre, descripcion);
 		return pasos.registrarPaso(pasoNuevo, codTarea);
 	}
 
 	public String modificarPaso(String codigo, String nombre, String descripcion) {
-		Paso pasoNuevo = new Paso(codigo, nombre, descripcion);
+		Paso pasoNuevo = fabrica.crearPaso(codigo, nombre, descripcion);
 		return pasos.modificarPaso(pasoNuevo);
 	}
-	
+
 	public String[] listarPaso(String codTarea) {
 		ArrayList<Paso> listPasos = pasos.listarPasos(codTarea);
-		String [] listString = new String[listPasos.size()];
-		
-		for(int i = 0; i < listPasos.size(); i++) {
+		String[] listString = new String[listPasos.size()];
+
+		for (int i = 0; i < listPasos.size(); i++) {
 			listString[i] = listPasos.get(i).toString();
 		}
-		
+
 		return listString;
 	}
 
-	//Empleados
 	public String registrarEmpleado(String ced, String nom1, String nom2, String ape1, String ape2, String correo,
 			String nomU, String clave, String rol, String codArea) {
-		Departamento area = new Departamento(codArea);
-		Empleado usuario = new Empleado(ced, nom1, nom2, ape1, ape2, correo, nomU, clave, rol);
+		Departamento area = fabrica.crearDepartamento(codArea);
+		Empleado usuario = fabrica.crearEmpleado(ced, nom1, nom2, ape1, ape2, correo, nomU, clave, rol);
 		usuario.setAreaFuncional(area);
 		return empleado.registrarEmpleado(usuario);
 	}
 
 	public String modificarEmpleado(String ced, String nom1, String nom2, String ape1, String ape2, String correo,
 			String nomU, String clave, String rol, String codArea) {
-		Departamento area = new Departamento(codArea);
-		Empleado usuario = new Empleado(ced, nom1, nom2, ape1, ape2, correo, nomU, clave, rol);
+		Departamento area = fabrica.crearDepartamento(codArea);
+		Empleado usuario = fabrica.crearEmpleado(ced, nom1, nom2, ape1, ape2, correo, nomU, clave, rol);
 		usuario.setAreaFuncional(area);
 		return empleado.modificarEmpleado(usuario);
 	}
-	
-	public String[] listarEmpleado() throws Exception{
+
+	public String[] listarEmpleado() throws Exception {
 		ArrayList<Empleado> listEmpleado = empleado.listarTodosEmpleados();
 		String[] infoEmpleados = new String[listEmpleado.size()];
-		
-		for(int i = 0; i < listEmpleado.size(); i++) {
+
+		for (int i = 0; i < listEmpleado.size(); i++) {
 			infoEmpleados[i] = listEmpleado.get(i).toString();
 		}
-		
+
 		return infoEmpleados;
 	}
 
-	//Ã�reas Funcionales
 	public String registrarArea(String codigo, String nombre, String descripcion) {
-		Departamento E = new Departamento(codigo, nombre, descripcion);
+		Departamento E = fabrica.crearDepartamento(codigo, nombre, descripcion);
 		return area_funcional.registrarDepartamento(E);
 	}
 
 	public String modificarArea(String codigo, String nombre, String descripcion) {
-		Departamento E = new Departamento(codigo, nombre, descripcion);
+		Departamento E = fabrica.crearDepartamento(codigo, nombre, descripcion);
 		return area_funcional.modificarDepartamento(E);
 	}
-	
+
 	public String[] listarAreas() {
 		ArrayList<Departamento> areas = area_funcional.listarAreas();
-		
-	String []infoAreas=new String [areas.size()];
-		for(int i=0;i>areas.size();i++) {
-			infoAreas[i]=areas.get(i).toString();			
+
+		String[] infoAreas = new String[areas.size()];
+		for (int i = 0; i > areas.size(); i++) {
+			infoAreas[i] = areas.get(i).toString();
 		}
 		return infoAreas;
 	}
-	
+
 	public String modificarEstadoDepartamento(String codigo) {
 		return area_funcional.modificarEstado(codigo);
-		
+
 	}
-	
 
 	public ArrayList<String> obtenerDescripcionPaso(String id_area) {
 		ArrayList<String> idsTareas = tarea.obtenerIdTarea(id_area);

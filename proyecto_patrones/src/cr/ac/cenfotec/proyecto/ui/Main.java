@@ -201,8 +201,7 @@ public class Main {
 				&& isValidarCodigoAreaFuncional(codigoDep)) {
 			imprimir.println(controlador.registrarTarea(codigoTarea, nombre, descripcion, codigoDep, codigoPro));
 		} else {
-			imprimir.println(
-					"Algun c\u00f3digo introducido, no existe en el sistema. " + "Vuelve a intentarlo.");
+			imprimir.println("Algun c\u00f3digo introducido, no existe en el sistema. " + "Vuelve a intentarlo.");
 		}
 
 	}
@@ -232,7 +231,8 @@ public class Main {
 		String nomU = solicitarDatoString("Digite el nombre del usuario.");
 		String clave = solicitarDatoString("Digite la clave.");
 		String rol = solicitarDatoString("Digite el rol.");
-		String codArea = solicitarDatoString("Digite el c\u00f3digo de la \u00e1rea funcional la cual pertenece el empleado");
+		String codArea = solicitarDatoString(
+				"Digite el c\u00f3digo de la \u00e1rea funcional la cual pertenece el empleado");
 
 		if (!isValidarCodigoEmpleado(cedula) && isValidarCodigoAreaFuncional(codArea)) {
 			imprimir.println(
@@ -307,7 +307,7 @@ public class Main {
 	private static void modificarEstadoArea() throws IOException {
 		imprimir.println("Digite el código del departamento al que desea cambiarle el estado");
 		String codigo = leer.readLine();
-		
+
 		imprimir.println(controlador.modificarEstadoDepartamento(codigo));
 	}
 
@@ -327,12 +327,12 @@ public class Main {
 		String codigoTarea, nombre, descripcion, codigoDep;
 
 		codigoTarea = solicitarDatoString("Digite el c\u00f3digo de la tarea a modificar");
-		
+
 		if (!isValidarCodigoTarea(codigoTarea)) {
 			imprimir.println("No existe el c\u00f3digo de la tarea, vuelva a intentarlo.");
 		} else {
 			codigoDep = solicitarDatoString("Digite el c\u00f3digo del nuevo departamento encargado de la tarea");
-			
+
 			if (!isValidarCodigoAreaFuncional(codigoDep)) {
 				imprimir.println("No existe el c\u00f3digo del departamento, vuelva a intentarlo.");
 			} else {
@@ -370,7 +370,7 @@ public class Main {
 		String nomU = solicitarDatoString("Digite el nuevo nombre del usuario.");
 		String clave = solicitarDatoString("Digite la nueva clave.");
 		String rol = solicitarDatoString("Digite el nuevo rol.");
-		String codArea = solicitarDatoString("Digite el c\u00f3digo de la \u00e1rea funcional"); 
+		String codArea = solicitarDatoString("Digite el c\u00f3digo de la \u00e1rea funcional");
 
 		if (isValidarCodigoEmpleado(cedula) && isValidarCodigoAreaFuncional(codArea)) {
 			imprimir.println(
@@ -414,69 +414,69 @@ public class Main {
 		}
 	}
 
-	public static String[] obtenerLista(int opcion,String codigo) throws Exception {
+	public static String[] obtenerLista(int opcion, String codigo) throws Exception {
 		boolean salir = false;
-		String [] listaObjeto=null;
+		String[] listaObjeto = null;
 		switch (opcion) {
 		case 0:
-			listaObjeto=controlador.listarTramite();
+			listaObjeto = controlador.listarTramite();
 			break;
 		case 1:
-			listaObjeto=controlador.listarProcesosActivos();
+			listaObjeto = controlador.listarProcesosActivos();
 			break;
 		case 2:
-			listaObjeto=controlador.listarProcesosCompletos();
+			listaObjeto = controlador.listarProcesosCompletos();
 			break;
 		case 3:
-			listaObjeto=controlador.listarTareas(codigo);
+			listaObjeto = controlador.listarTareas(codigo);
 			break;
 		case 4:
-			listaObjeto=controlador.listarPaso(codigo);
+			listaObjeto = controlador.listarPaso(codigo);
 			break;
 		case 5:
-			listaObjeto=controlador.listarEmpleado();
+			listaObjeto = controlador.listarEmpleado();
 			break;
 		case 6:
-			listaObjeto=controlador.listarAreas();
+			listaObjeto = controlador.listarAreas();
 			break;
 		default:
-		imprimir.println("Lo sentimos esa opci\u00f3n no est&aacute dentro del  men&uacute");;
+			imprimir.println("Lo sentimos esa opci\u00f3n no est&aacute dentro del  men&uacute");
+			;
 			break;
 		}
 
 		return listaObjeto;
 	}
 
-
-
 	public static boolean seleccionarOpcionListar(int opcion) throws Exception {
-		String[] info=null; 
-		String codigo=null;
-		 info = obtenerProcesoOTarea(opcion);
+		String[] info = null;
+		String codigo = null;
+		info = obtenerProcesoOTarea(opcion);
 		boolean salir = false;
-		for(int i = 0; i < info.length; i++) {
+		for (int i = 0; i < info.length; i++) {
 			imprimir.println(info[i]);
 		}
-		salir=true;
+		salir = true;
 		return salir;
 
-}
+	}
 
 	private static String[] obtenerProcesoOTarea(int opcion) throws IOException, Exception {
 		String[] info;
 		String codigo;
-		if(opcion==3) { 
-		 codigo=obtenerCodigoProceso();
-		 info = obtenerLista(opcion,codigo);}
-		if(opcion==4) {
-	     codigo=obtenerCodigoTarea();
-		 info = obtenerLista(opcion,codigo);}			 
-		 else { 
-	    info = obtenerLista(opcion,"");}
-		
+		if (opcion == 3) {
+			codigo = obtenerCodigoProceso();
+			info = obtenerLista(opcion, codigo);
+		}
+		if (opcion == 4) {
+			codigo = obtenerCodigoTarea();
+			info = obtenerLista(opcion, codigo);
+		} else {
+			info = obtenerLista(opcion, "");
+		}
+
 		return info;
 	}
-
 
 	public static String obtenerCodigoProceso() throws IOException {
 		String codProceso = "";
@@ -503,15 +503,15 @@ public class Main {
 
 		return codTarea;
 	}
-	
+
 	private static boolean isValidarCodigoProceso(String codigo) {
 		return controlador.validarCodigo(codigo, controlador.codidosTramites());
 	}
-	
+
 	private static boolean isValidarCodigoTarea(String codigoTarea) {
 		return controlador.validarCodigo(codigoTarea, controlador.codidosTareas());
 	}
-	
+
 	private static boolean isValidarCodigoAreaFuncional(String codArea) {
 		return controlador.validarCodigo(codArea, controlador.codidosAreas());
 	}
@@ -519,10 +519,10 @@ public class Main {
 	private static boolean isValidarCodigoEmpleado(String cedula) {
 		return controlador.validarCodigo(cedula, controlador.codidosEmpleados());
 	}
-	
+
 	private static String solicitarDatoString(String mensaje) throws IOException {
 		imprimir.println(mensaje);
 		return leer.readLine();
 	}
-		
+
 }
