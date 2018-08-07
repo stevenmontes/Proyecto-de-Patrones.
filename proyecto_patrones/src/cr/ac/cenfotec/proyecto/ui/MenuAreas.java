@@ -2,10 +2,10 @@ package cr.ac.cenfotec.proyecto.ui;
 
 import java.util.ArrayList;
 
-public class MainAreas extends Main {
+public class MenuAreas extends Main {
 
 	@Override
-	public void mostrarMenuPrincipal() {
+	public void menu() {
 		ArrayList<String> pasos = controlador.obtenerNombresPasos(usuario[3]);
 
 		for (int i = 0; i < pasos.size(); i++) {
