@@ -1,0 +1,1 @@
+com.microsoft.sqlserver.jdbc.SQLServerDriver,jdbc:sqlserver://DESKTOP-UFCN1H5;DatabaseName=bd_sistema_patrones_v1;integratedsecurity = true
