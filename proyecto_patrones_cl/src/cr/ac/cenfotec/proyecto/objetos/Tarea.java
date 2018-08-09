@@ -32,6 +32,15 @@ public class Tarea {
 		this.pasos = new ArrayList<>();
 	}
 
+	public Tarea(String codigo, String nombre, String descripcion, Departamento area, String estado) {
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.areaEncargada = area;
+		this.estado = estado;
+		
+	}
+
 	public String getCodigo() {
 		return codigo;
 	}
@@ -93,10 +102,10 @@ public class Tarea {
 		String s = " ";
 		s += "Tarea: Codigo: " + codigo + " || Nombre: " + nombre + " || Descripcion: " + descripcion + "|| Estado:"
 				+ estado + " || Area Encargada: " + areaEncargada.getNombre();
-		s += "PASOS DE TAREA:";
-		for (Paso p : pasos) {
-			s += p.toString();
-		}
+//		s += "PASOS DE TAREA:";
+//		for (Paso p : pasos) {
+//			s += p.toString();
+//		}
 		return s;
 	}
 

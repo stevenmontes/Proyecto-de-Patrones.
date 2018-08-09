@@ -117,8 +117,10 @@ public class Controlador {
 		return tarea.modificarTarea(as);
 	}
 
-	public String[] listarTareas(String codigo) {
+	public String[] listarTareas(String codigo) throws Exception {
+	
 		ArrayList<Tarea> listaTareas = tarea.listarTareas(codigo);
+	
 		String[] listString = new String[listaTareas.size()];
 
 		for (int i = 0; i < listaTareas.size(); i++) {
@@ -190,7 +192,7 @@ public class Controlador {
 		ArrayList<Departamento> areas = area_funcional.listarAreas();
 
 		String[] infoAreas = new String[areas.size()];
-		for (int i = 0; i > areas.size(); i++) {
+		for (int i = 0; i < areas.size(); i++) {
 			infoAreas[i] = areas.get(i).toString();
 		}
 		return infoAreas;
