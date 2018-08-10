@@ -12,8 +12,8 @@ public class MultiTramite {
 		
 	}
 	
-	public String registrarTramite (Tramite E) {
-        String consulta = "{Call dbo.pa_registrar_proceso ('" + E.getCodigo() + "','" + E.getNombre() + "', '" + E.getDescripcion() + "')}";
+	public String registrarTramite (Tramite nuevoP) {
+        String consulta = "{Call dbo.pa_registrar_proceso ('" + nuevoP.getCodigo() + "','" + nuevoP.getNombre() + "', '" + nuevoP.getDescripcion() + "')}";
         String resultado;
 
         try {

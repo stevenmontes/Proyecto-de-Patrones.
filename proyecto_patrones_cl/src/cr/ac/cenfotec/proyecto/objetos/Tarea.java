@@ -93,10 +93,6 @@ public class Tarea {
 		String s = " ";
 		s += "Tarea: Codigo: " + codigo + " || Nombre: " + nombre + " || Descripcion: " + descripcion + "|| Estado:"
 				+ estado + " || Area Encargada: " + areaEncargada.getNombre();
-		s += "PASOS DE TAREA:";
-		for (Paso p : pasos) {
-			s += p.toString();
-		}
 		return s;
 	}
 

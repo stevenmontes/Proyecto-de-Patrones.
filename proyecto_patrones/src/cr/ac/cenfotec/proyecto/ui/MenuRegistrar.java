@@ -47,7 +47,7 @@ public class MenuRegistrar extends MenuPrincipal {
 		String nombre = solicitarDatoString("Digite el nombre");
 		String descripcion = solicitarDatoString("Digite el descripci\u00f3n");
 
-		if (isValidarCodigoProceso(codigo)) {
+		if (!isValidarCodigoProceso(codigo)) {
 			imprimir.println(controlador.registrarTramite(codigo, nombre, descripcion));
 		} else {
 			imprimir.println("C\u00f3digo del proceso esta repetido. Vuelve a intentarlo.");
