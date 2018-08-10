@@ -74,7 +74,7 @@ public class MenuListar extends MenuPrincipal{
 		return codTarea;
 	}
 	
-	public String[] obtenerLista(int opcion, String codigo) throws Exception {
+	public  String[] obtenerLista(int opcion, String codigo) throws Exception {
 		String[] listaObjeto = null;
 		switch (opcion) {
 		case 0:

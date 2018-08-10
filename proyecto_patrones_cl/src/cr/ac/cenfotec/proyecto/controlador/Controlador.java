@@ -190,7 +190,7 @@ public class Controlador {
 		ArrayList<Departamento> areas = area_funcional.listarAreas();
 
 		String[] infoAreas = new String[areas.size()];
-		for (int i = 0; i > areas.size(); i++) {
+		for (int i = 0; i < areas.size(); i++) {
 			infoAreas[i] = areas.get(i).toString();
 		}
 		return infoAreas;
