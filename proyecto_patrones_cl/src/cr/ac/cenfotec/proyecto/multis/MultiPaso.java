@@ -21,7 +21,7 @@ public class MultiPaso {
                 resultado = "El paso se registró correctamente en el sistema.";
 
         } catch (Exception error) {
-                resultado = "No se pudo registrar el paso, intentelo de nuevo " + error.getMessage();
+                resultado = "No se pudo registrar el paso, intentelo de nuevo";
 
         }
 
@@ -37,7 +37,7 @@ public class MultiPaso {
                 resultado = "El paso se modifico correctamente en el sistema.";
 
         } catch (Exception error) {
-                resultado = "No se pudo modificar el paso, intentelo de nuevo " + error.getMessage();
+                resultado = "No se pudo modificar el paso, intentelo de nuevo";
 
         }
 

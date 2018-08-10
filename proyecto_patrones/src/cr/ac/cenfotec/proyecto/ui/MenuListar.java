@@ -37,8 +37,7 @@ public class MenuListar extends MenuPrincipal{
 		if (opcion == 3) {
 			codigo = obtenerCodigoProceso();
 			info = obtenerLista(opcion, codigo);
-		}
-		if (opcion == 4) {
+		}else if (opcion == 4) {
 			codigo = obtenerCodigoTarea();
 			info = obtenerLista(opcion, codigo);
 		} else {

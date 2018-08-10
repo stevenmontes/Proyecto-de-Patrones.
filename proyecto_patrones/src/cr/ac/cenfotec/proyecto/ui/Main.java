@@ -9,6 +9,8 @@ public abstract class Main extends MenuPrincipal{
 		solicitarInicioSesion();
 		MenuPrincipal nuevo = seleccionarMenuPrincipal();
 		nuevo.ejecutar();
+		imprimir.println("Apagando sistema..");
+		imprimir.println("Apagado.");
 	}
 
 

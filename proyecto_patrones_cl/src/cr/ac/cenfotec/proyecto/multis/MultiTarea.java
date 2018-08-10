@@ -4,9 +4,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import cr.ac.cenfotec.proyecto.conexion.Conector;
+import cr.ac.cenfotec.proyecto.controlador.Fabrica;
+import cr.ac.cenfotec.proyecto.objetos.Departamento;
 import cr.ac.cenfotec.proyecto.objetos.Tarea;
 
 public class MultiTarea {
+	
+	private Fabrica fabrica = new Fabrica();
 	
 	public MultiTarea() {
 		
@@ -86,8 +90,11 @@ public class MultiTarea {
         	ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
         	
         	while(rs.next()) {
+        		Departamento areaEncargada = fabrica.crearDepartamento(rs.getString("codA"),
+        				rs.getString("area"), rs.getString("desA")); 
         		Tarea ex = new Tarea(rs.getString("codigo"), rs.getString("nombre"), 
         								 rs.getString("descripcion"), rs.getString("estado"));
+        		ex.setAreaEncargada(areaEncargada);
         		lista.add(ex);
         	}
 
