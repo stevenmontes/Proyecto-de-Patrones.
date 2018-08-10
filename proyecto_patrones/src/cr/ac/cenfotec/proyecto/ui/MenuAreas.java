@@ -16,7 +16,7 @@ public class MenuAreas extends Main {
 
 	@Override
 	public boolean seleccionarOpcion(int opcion) throws Exception {
-		// TODO Auto-generated method stub
+	
 		return false;
 	}
 

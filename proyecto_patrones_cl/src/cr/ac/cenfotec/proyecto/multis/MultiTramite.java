@@ -21,7 +21,7 @@ public class MultiTramite {
                 resultado = "El proceso se registró correctamente en el sistema.";
 
         } catch (Exception ex) {
-                resultado = "No se pudo registrar el proceso, intentelo de nuevo " + ex.getMessage();
+                resultado = "No se pudo registrar el proceso, intentelo de nuevo.";
 
         }
 
@@ -37,7 +37,7 @@ public class MultiTramite {
                 resultado = "El proceso se modificó correctamente en el sistema.";
 
         } catch (Exception ex) {
-                resultado = "No se pudo modificar el proceso, intentelo de nuevo " + ex.getMessage();
+                resultado = "No se pudo modificar el proceso, intentelo de nuevo ";
 
         }
 
