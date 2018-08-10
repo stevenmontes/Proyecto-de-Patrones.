@@ -44,19 +44,18 @@ public class Controlador {
 
 	public boolean validarCodigo(String codigo, ArrayList<String> EE) {
 		boolean Ex = false;
-
 		for (String var : EE) {
 			if (var.equals(codigo)) {
 				Ex = true;
 				break;
 			}
 		}
-
 		return Ex;
 	}
 
 	public String registrarTramite(String codigo, String nombre, String descripcion) {
 		Tramite proceso = fabrica.crearTramite(codigo, nombre, descripcion);
+		
 		return sistema.registrarTramite(proceso);
 	}
 
@@ -72,7 +71,6 @@ public class Controlador {
 		for (int i = 0; i < listProcesos.size(); i++) {
 			infoProcesos[i] = listProcesos.get(i).toString();
 		}
-
 		return infoProcesos;
 	}
 
@@ -85,7 +83,7 @@ public class Controlador {
 		return listaPA;
 	}
 
-	public String[] listarProcesosCompletos() {
+	public String[] listarProcesosCompletos(){
 		ArrayList<Tramite> lisPC = sistema.obtenerProcesosCompletado();
 		String[] listaPC = new String[lisPC.size()];
 		for (int i = 0; i < lisPC.size(); i++) {
@@ -101,33 +99,42 @@ public class Controlador {
 		TareaBuilder builder = new Tarea.TareaBuilder(codigo, nombre, descripcion);
 		builder = builder.withAreaEncargada(area).withPasos().withEstado("en proceso");
 		as = builder.createTarea();
-
 		return tarea.registrarTarea(as, pro);
 	}
 
 	public String modificarTarea(String codigo, String nombre, String descripcion, String dep) {
-
 		Departamento area = fabrica.crearDepartamento(dep);
-
 		Tarea as;
 		TareaBuilder builder = new Tarea.TareaBuilder(codigo, nombre, descripcion);
 		builder = builder.withAreaEncargada(area).withPasos().withEstado("en proceso");
 		as = builder.createTarea();
-
 		return tarea.modificarTarea(as);
 	}
 
-	public String[] listarTareas(String codigo) {
+	public String[] listarTareas(String codigo) throws Exception {
 		ArrayList<Tarea> listaTareas = tarea.listarTareas(codigo);
 		String[] listString = new String[listaTareas.size()];
-
 		for (int i = 0; i < listaTareas.size(); i++) {
 			listString[i] = listaTareas.get(i).toString();
 		}
-
 		return listString;
 	}
 
+	
+	
+	public String ModificarEstadoProcedimiento(ArrayList<Tarea> listaTareas){
+		String mensaje= "";	
+		int cantTareas=listaTareas.size(),cantTareasCompletadas=0;
+		for (Tarea var:listaTareas) {
+			if(var.getEstado()=="Completado") {
+				cantTareasCompletadas+=1;
+			}
+			if(cantTareas==cantTareasCompletadas) {
+				 mensaje= "Se ha completado un procedimiento.";
+			}	
+		}
+		return mensaje;
+	}
 	public String registrarPaso(String codigo, String nombre, String descripcion, String codTarea) {
 		Paso pasoNuevo = fabrica.crearPaso(codigo, nombre, descripcion);
 		return pasos.registrarPaso(pasoNuevo, codTarea);
@@ -168,11 +175,9 @@ public class Controlador {
 	public String[] listarEmpleado() throws Exception {
 		ArrayList<Empleado> listEmpleado = empleado.listarTodosEmpleados();
 		String[] infoEmpleados = new String[listEmpleado.size()];
-
 		for (int i = 0; i < listEmpleado.size(); i++) {
 			infoEmpleados[i] = listEmpleado.get(i).toString();
 		}
-
 		return infoEmpleados;
 	}
 
@@ -188,9 +193,8 @@ public class Controlador {
 
 	public String[] listarAreas() {
 		ArrayList<Departamento> areas = area_funcional.listarAreas();
-
 		String[] infoAreas = new String[areas.size()];
-		for (int i = 0; i > areas.size(); i++) {
+		for (int i = 0; i < areas.size(); i++) {
 			infoAreas[i] = areas.get(i).toString();
 		}
 		return infoAreas;
@@ -198,7 +202,6 @@ public class Controlador {
 
 	public String modificarEstadoDepartamento(String codigo) {
 		return area_funcional.modificarEstado(codigo);
-
 	}
 
 	public ArrayList<String> obtenerNombresPasos(String id_area) {
@@ -218,5 +221,7 @@ public class Controlador {
 
 		return nombrePasos;
 	}
+	
+	
 
 }

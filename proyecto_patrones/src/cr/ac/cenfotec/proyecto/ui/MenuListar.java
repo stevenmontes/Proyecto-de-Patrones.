@@ -32,8 +32,9 @@ public class MenuListar extends MenuPrincipal{
 	}
 	
 	protected String[] obtenerProcesoOTarea(int opcion) throws IOException, Exception {
-		String[] info;
+		String[] info=null;
 		String codigo;
+		if(opcion==3 || opcion==4) {
 		if (opcion == 3) {
 			codigo = obtenerCodigoProceso();
 			info = obtenerLista(opcion, codigo);
@@ -41,7 +42,7 @@ public class MenuListar extends MenuPrincipal{
 		if (opcion == 4) {
 			codigo = obtenerCodigoTarea();
 			info = obtenerLista(opcion, codigo);
-		} else {
+		}} else {
 			info = obtenerLista(opcion, "");
 		}
 
@@ -74,7 +75,7 @@ public class MenuListar extends MenuPrincipal{
 		return codTarea;
 	}
 	
-	public String[] obtenerLista(int opcion, String codigo) throws Exception {
+	public  String[] obtenerLista(int opcion, String codigo) throws Exception {
 		String[] listaObjeto = null;
 		switch (opcion) {
 		case 0:

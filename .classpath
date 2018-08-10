@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="proyecto_patrones_cl/src"/>
-	<classpathentry kind="src" path="proyecto_patrones_conexion/src"/>
-	<classpathentry kind="src" path="proyecto_patrones/src"/>
-	<classpathentry kind="lib" path="proyecto_patrones/lib/conexion.jar"/>
-	<classpathentry kind="lib" path="proyecto_patrones/lib/guava-19.0.jar"/>
-	<classpathentry kind="lib" path="proyecto_patrones/lib/logica.jar"/>
-	<classpathentry kind="lib" path="proyecto_patrones/lib/sqljdbc42.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/Desktop/Patrones/jars/junit-4.12.jar"/>
-	<classpathentry kind="output" path="proyecto_patrones/bin"/>
+	<classpathentry kind="con"
+		path="org.eclipse.jdt.launching.JRE_CONTAINER" />
+	<classpathentry kind="src"
+		path="proyecto_patrones_cl/src" />
+	<classpathentry kind="src"
+		path="proyecto_patrones_conexion/src" />
+	<classpathentry kind="src" path="proyecto_patrones/src" />
+	<classpathentry kind="lib"
+		path="proyecto_patrones/lib/conexion.jar" />
+	<classpathentry kind="lib"
+		path="proyecto_patrones/lib/guava-19.0.jar" />
+	<classpathentry kind="lib"
+		path="proyecto_patrones/lib/logica.jar" />
+	<classpathentry kind="lib"
+		path="proyecto_patrones/lib/sqljdbc42.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/Usuario/Desktop/Patrones/junit-4.12.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/Usuario/Desktop/Patrones/hamcrest-core-1.3.jar" />
+	<classpathentry kind="output"
+		path="proyecto_patrones/bin" />
 </classpath>

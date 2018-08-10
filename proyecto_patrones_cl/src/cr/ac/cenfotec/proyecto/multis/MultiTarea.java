@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import cr.ac.cenfotec.proyecto.conexion.Conector;
+import cr.ac.cenfotec.proyecto.objetos.Departamento;
 import cr.ac.cenfotec.proyecto.objetos.Tarea;
 
 public class MultiTarea {
@@ -78,21 +79,25 @@ public class MultiTarea {
         return relt;
 	}
 	
-	public ArrayList<Tarea> listarTareas(String codigo){
+	public ArrayList<Tarea> listarTareas(String codigo) throws Exception{
 		ArrayList<Tarea> lista = new ArrayList<>();
+
         String consulta = "{Call dbo.pa_listar_tareas ('" + codigo + "')}";
 
         try {
         	ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
         	
         	while(rs.next()) {
+        		Departamento de=new Departamento(rs.getString("codA"),rs.getString("area"),rs.getString("desA"));
         		Tarea ex = new Tarea(rs.getString("codigo"), rs.getString("nombre"), 
-        								 rs.getString("descripcion"), rs.getString("estado"));
+        								 rs.getString("descripcion"), de,rs.getString("estado"));
+        	
+        		
         		lista.add(ex);
         	}
 
         } catch (Exception ex) {
-        	
+        	throw ex;
         }
 
         return lista;
