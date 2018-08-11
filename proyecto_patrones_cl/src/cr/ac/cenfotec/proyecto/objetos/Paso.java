@@ -9,11 +9,12 @@ public class Paso {
 	private String codigo;
 	private String nombre;
 	private String descripcion;
-	private boolean respuesta;
+	private char respuesta;
 	private String estado;
 	private Empleado encargado;
 	private String fechaInicio;
 	private String fechaFin;
+	private int numeroOrden;
 	
 	public Paso () {
 		
@@ -49,16 +50,8 @@ public class Paso {
 		this.nombre = nombre;
 	}
 
-	public boolean isRespuesta() {
+	public char getRespuesta() {
 		return respuesta;
-	}
-
-	public void aceptarRespuesta() {
-		this.respuesta = true;
-	}
-	
-	public void rechazarRespuesta() {
-		this.respuesta = false;
 	}
 
 	public String getDescripcion() {
@@ -99,13 +92,13 @@ public class Paso {
 	
 	public void iniciarFecha() {
 		Date hoy = new Date();
-		DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
 		this.fechaInicio = formatoFecha.format(hoy);
 	}
 	
 	public void finalizarFecha () {
 		Date fin = new Date();
-		DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
 		this.fechaFin = formatoFecha.format(fin);
 	}
 	
@@ -124,22 +117,29 @@ public class Paso {
 	public String getFechaFin() {
 		return fechaFin;
 	}
-	
 
-	public void setRespuesta(boolean respuesta) {
+	public void setRespuesta(char respuesta) {
 		this.respuesta = respuesta;
+	}
+
+	public int getNumeroOrden() {
+		return numeroOrden;
+	}
+
+	public void setNumeroOrden(int numeroOrden) {
+		this.numeroOrden = numeroOrden;
 	}
 
 	@Override
 	public String toString() {
-		return "----------------------------------------- \n" + 
-				"ID: " + getId() + "\n" +
-				"Codigo: " + getCodigo() + "\n" + 
-				"Nombre: " + getNombre() + "\n" +
-				"Descripcion: " + getDescripcion() + "\n" + 
-				"Fecha inicio: " + getFechaInicio() + "\n" + 
-				"Fecha fin: " + getFechaFin() + "\n" +
-				"----------------------------------------- \n";	
+		StringBuilder contenido = new StringBuilder();
+		contenido.append("----------------------------------------- \n");
+		contenido.append("Codigo: " + getCodigo() + "\n");
+		contenido.append("Nombre: " + getNombre() + "\n");
+		contenido.append("Descripcion: " + getDescripcion() + "\n");
+		contenido.append("Numero de orden: " + getNumeroOrden() + "\n");
+		contenido.append("----------------------------------------- \n");
+		return contenido.toString();
 	}
 	
 	

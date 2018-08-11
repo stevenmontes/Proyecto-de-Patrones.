@@ -9,6 +9,7 @@ public class Tarea {
 	private String estado;
 	private Departamento areaEncargada;
 	private ArrayList<Paso> pasos;
+	private int numeroOrden;
 
 	public Tarea() {
 		pasos = new ArrayList<>();
@@ -23,13 +24,14 @@ public class Tarea {
 	}
 
 	public Tarea(String codigo, String nombre, String descripcion, Departamento area, String estado,
-			ArrayList<Paso> pasos) {
+			ArrayList<Paso> pasos, int numeroOrden) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.areaEncargada = area;
 		this.estado = estado;
 		this.pasos = new ArrayList<>();
+		this.numeroOrden = numeroOrden;
 	}
 
 	public String getCodigo() {
@@ -88,12 +90,22 @@ public class Tarea {
 		this.pasos = pasos;
 	}
 
+	public int getNumeroOrden() {
+		return numeroOrden;
+	}
+
 	@Override
 	public String toString() {
-		String s = " ";
-		s += "Tarea: Codigo: " + codigo + " || Nombre: " + nombre + " || Descripcion: " + descripcion + "|| Estado:"
-				+ estado + " || Area Encargada: " + areaEncargada.getNombre();
-		return s;
+		StringBuilder contenido = new StringBuilder();
+		contenido.append("----------------------------------------- \n");
+		contenido.append("Codigo: " + getCodigo() + "\n");
+		contenido.append("Nombre: " + getNombre() + "\n");
+		contenido.append("Descripcion: " + getDescripcion() + "\n");
+		contenido.append("Estado: " + getEstado() + "\n");
+		contenido.append("Area encargada: " + areaEncargada.getNombre() + "\n");
+		contenido.append("Numero de orden: " + getNumeroOrden() + "\n");
+		contenido.append("-----------------------------------------");
+		return contenido.toString();
 	}
 
 	public static class TareaBuilder {
@@ -104,6 +116,7 @@ public class Tarea {
 		private String nestedEstado;
 		private Departamento nestedAreaEncargada;
 		private ArrayList<Paso> nestedPasos;
+		private int nestedNumeroOrden;
 
 		public TareaBuilder(final String newNestedCodigo, final String newNestedNombre,
 				final String newNestedDescripcion) {
@@ -114,39 +127,44 @@ public class Tarea {
 
 		}
 
-		public TareaBuilder withCodigo(String newCodigo) {
+		public TareaBuilder codigo(String newCodigo) {
 			this.nestedCodigo = newCodigo;
 			return this;
 		}
 
-		public TareaBuilder withNombre(String newNombre) {
+		public TareaBuilder nombre(String newNombre) {
 			this.nestedNombre = newNombre;
 			return this;
 		}
 
-		public TareaBuilder withDescripcion(String newDescripcion) {
+		public TareaBuilder descripcion(String newDescripcion) {
 			this.nestedDescripcion = newDescripcion;
 			return this;
 		}
 
-		public TareaBuilder withEstado(String newEstado) {
+		public TareaBuilder estado(String newEstado) {
 			this.nestedEstado = newEstado;
 			return this;
 		}
 
-		public TareaBuilder withAreaEncargada(Departamento newAreaEncargada) {
+		public TareaBuilder areaEncargada(Departamento newAreaEncargada) {
 			this.nestedAreaEncargada = newAreaEncargada;
 			return this;
 		}
 
-		public TareaBuilder withPasos() {
+		public TareaBuilder pasos() {
 			this.nestedPasos = new ArrayList<>();
+			return this;
+		}
+
+		public TareaBuilder numeroOrden(int numeroOrden) {
+			this.nestedNumeroOrden = numeroOrden;
 			return this;
 		}
 
 		public Tarea createTarea() {
 			return new Tarea(nestedCodigo, nestedNombre, nestedDescripcion, nestedAreaEncargada, nestedEstado,
-					nestedPasos);
+					nestedPasos, nestedNumeroOrden);
 
 		}
 
