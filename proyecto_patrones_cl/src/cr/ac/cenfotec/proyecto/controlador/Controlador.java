@@ -95,25 +95,17 @@ public class Controlador {
 	}
 
 	public String registrarTarea(String codigo, String nombre, String descripcion, String dep, String pro) {
-		Departamento area = fabrica.crearDepartamento(dep);
-
-		Tarea as;
 		TareaBuilder builder = new Tarea.TareaBuilder(codigo, nombre, descripcion);
-		builder = builder.withAreaEncargada(area).withPasos().withEstado("en proceso");
-		as = builder.createTarea();
-
+		builder = builder.areaEncargada(fabrica.crearDepartamento(dep)).pasos().estado("en proceso")
+				.numeroOrden(tarea.listarTareas(pro).size() + 1);
+		Tarea as = builder.createTarea();
 		return tarea.registrarTarea(as, pro);
 	}
 
 	public String modificarTarea(String codigo, String nombre, String descripcion, String dep) {
-
-		Departamento area = fabrica.crearDepartamento(dep);
-
-		Tarea as;
 		TareaBuilder builder = new Tarea.TareaBuilder(codigo, nombre, descripcion);
-		builder = builder.withAreaEncargada(area).withPasos().withEstado("en proceso");
-		as = builder.createTarea();
-
+		builder = builder.areaEncargada(fabrica.crearDepartamento(dep)).pasos().estado("en proceso");
+		Tarea as = builder.createTarea();
 		return tarea.modificarTarea(as);
 	}
 
@@ -130,12 +122,21 @@ public class Controlador {
 
 	public String registrarPaso(String codigo, String nombre, String descripcion, String codTarea) {
 		Paso pasoNuevo = fabrica.crearPaso(codigo, nombre, descripcion);
+		pasoNuevo.setNumeroOrden(pasos.listarPasos(codTarea).size() + 1);
 		return pasos.registrarPaso(pasoNuevo, codTarea);
 	}
 
 	public String modificarPaso(String codigo, String nombre, String descripcion) {
-		Paso pasoNuevo = fabrica.crearPaso(codigo, nombre, descripcion);
-		return pasos.modificarPaso(pasoNuevo);
+		String consulta = "{Call dbo.pa_modificar_paso ('" + codigo + "', '" + nombre + "','" + descripcion + "')}";
+		return pasos.modificarPaso(consulta);
+	}
+
+	public String modificarPaso(Paso pasoNuevo) {
+		String consulta = "{Call dbo.pa_modificar_paso_completo ('" + pasoNuevo.getCodigo() +
+				"', '" + pasoNuevo.getEstado() + "','" +  pasoNuevo.getRespuesta() +
+				"', '" + pasoNuevo.getFechaInicio() + "','" + pasoNuevo.getFechaFin() +
+				"', '" + pasoNuevo.getEncargado().getCedula() + "')}";
+		return pasos.modificarPaso(consulta);
 	}
 
 	public String[] listarPaso(String codTarea) {
@@ -200,34 +201,16 @@ public class Controlador {
 		return area_funcional.modificarEstado(codigo);
 
 	}
-	
-	public ArrayList<Tarea> obtenerTareasPorArea(String idArea) throws Exception{
+
+	public ArrayList<Tarea> obtenerTareasPorArea(String idArea) throws Exception {
 		ArrayList<Tarea> listaTareas = tarea.obtenerTareasPorArea(idArea);
-		
-		for(int tareaActual = 0; tareaActual < listaTareas.size(); tareaActual++) {
+
+		for (int tareaActual = 0; tareaActual < listaTareas.size(); tareaActual++) {
 			String codigo = listaTareas.get(tareaActual).getCodigo();
 			listaTareas.get(tareaActual).setPasos(pasos.listarPasos(codigo));
 		}
-		
+
 		return listaTareas;
-	}
-
-	public ArrayList<String> obtenerNombresPasos(String id_area) {
-		ArrayList<String> codigoTareas = tarea.obtenerCodigosTareasPorArea(id_area);
-		ArrayList<Paso> listaPasos;
-		ArrayList<String> nombrePasos = new ArrayList<>();
-		String codigoTarea;
-
-		for (int indTarea = 0; indTarea < codigoTareas.size(); indTarea++) {
-			codigoTarea = codigoTareas.get(indTarea);
-			listaPasos = pasos.listarPasos(codigoTarea);
-
-			for (int indPaso = 0; indPaso < listaPasos.size(); indPaso++) {
-				nombrePasos.add(listaPasos.get(indPaso).getNombre());
-			}
-		}
-
-		return nombrePasos;
 	}
 
 }

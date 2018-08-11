@@ -1,7 +1,9 @@
 package cr.ac.cenfotec.proyecto.ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import cr.ac.cenfotec.proyecto.objetos.Empleado;
 import cr.ac.cenfotec.proyecto.objetos.Paso;
 import cr.ac.cenfotec.proyecto.objetos.Tarea;
 
@@ -14,17 +16,16 @@ public class MenuAreas extends Main {
 		inicializarTareas();
 
 		for (int indTarea = 0; indTarea < tareas.size(); indTarea++) {
-			imprimir.println("Tarea: " + tareas.get(indTarea).getNombre());
+			imprimir.println(tareas.get(indTarea).getNumeroOrden() + "- Tarea: " + tareas.get(indTarea).getNombre());
 			ArrayList<Paso> listaPasos = tareas.get(indTarea).getPasos();
 
-			for (int i = 0; i < listaPasos.size(); i++) {
-				int cont = i;
-				imprimir.println("	" + (++cont) + ". " + listaPasos.get(i).getNombre() + " ("
-						+ listaPasos.get(i).getEstado() + ")");
+			for (int indPaso = 0; indPaso < listaPasos.size(); indPaso++) {
+				imprimir.println("	-" + listaPasos.get(indPaso).getNumeroOrden() + ". "
+						+ listaPasos.get(indPaso).getNombre() + " (" + listaPasos.get(indPaso).getEstado() + ")");
 			}
 		}
-		
-		imprimir.println("	0. Salir");
+
+		imprimir.println("	-0. Salir");
 	}
 
 	@Override
@@ -33,10 +34,37 @@ public class MenuAreas extends Main {
 		case 0:
 			return true;
 		default:
+			mostrarPregunta(opcion);
 			break;
 		}
-		
+
 		return false;
+	}
+
+	private void mostrarPregunta(int opcion) throws IOException {
+		Paso nuevoPaso = obtenerPasoActual(opcion);
+		imprimir.println(nuevoPaso.getDescripcion() + "Y/N");
+		nuevoPaso.setRespuesta(leer.readLine().charAt(0));
+		nuevoPaso.completar();
+		nuevoPaso.finalizarFecha();
+		imprimir.println(controlador.modificarPaso(nuevoPaso));
+	}
+
+	private Paso obtenerPasoActual(int opcion) {
+		for (Tarea tareaActual : tareas) {
+			ArrayList<Paso> listaPasos = tareaActual.getPasos();
+			
+			for(Paso pasoActual: listaPasos) {
+				if(pasoActual.getNumeroOrden() == opcion) {
+					Empleado encargado = new Empleado();
+					encargado.setCedula(usuario[0]);
+					pasoActual.setEncargado(encargado);
+					pasoActual.iniciarFecha();
+					return pasoActual;
+				}
+			}
+		}
+		return null;
 	}
 
 	private void inicializarTareas() {

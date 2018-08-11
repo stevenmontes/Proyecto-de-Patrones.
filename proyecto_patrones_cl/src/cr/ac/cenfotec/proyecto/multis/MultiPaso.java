@@ -13,7 +13,9 @@ public class MultiPaso {
 	}
 	
 	public String registrarPaso(Paso nuevoPaso, String codTarea) {
-        String consulta = "{Call dbo.pa_registrar_paso ('" + nuevoPaso.getCodigo() + "','" + nuevoPaso.getNombre() + "','" + nuevoPaso.getDescripcion() + "', '" + codTarea + "')}";
+        String consulta = "{Call dbo.pa_registrar_paso ('" + nuevoPaso.getCodigo() +
+        		"','" + nuevoPaso.getNombre() + "','" + nuevoPaso.getDescripcion() +
+        		"','" + codTarea + "','" + nuevoPaso.getNumeroOrden() + "')}";
         String resultado;
 
         try {
@@ -28,8 +30,7 @@ public class MultiPaso {
         return resultado;
 	}
 	
-	public String modificarPaso(Paso paso) {
-        String consulta = "{Call dbo.pa_modificar_paso ('" + paso.getCodigo() + "', '" + paso.getNombre() + "','" + paso.getDescripcion() + "')}";
+	public String modificarPaso(String consulta) {
         String resultado;
 
         try {
@@ -98,6 +99,7 @@ public class MultiPaso {
         		nuevoPaso.setFechaInicio(conexion.getString("fecha_inicio"));
         		nuevoPaso.setFechaFin(conexion.getString("fecha_fin"));
         		nuevoPaso.setEstado(conexion.getString("estado"));
+        		nuevoPaso.setNumeroOrden(Integer.parseInt(conexion.getString("numero_orden")));
         		listPasos.add(nuevoPaso);
         	}
 
