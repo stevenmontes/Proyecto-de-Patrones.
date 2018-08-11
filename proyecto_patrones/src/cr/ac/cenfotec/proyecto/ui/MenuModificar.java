@@ -102,7 +102,7 @@ public class MenuModificar extends MenuPrincipal{
 	}
 
 	public void modificarEmpleado() throws IOException {
-		String cedula = solicitarDatoString("Digite la nueva c\u00e9dula.");
+		String cedula = solicitarDatoString("Digite la c\u00e9dula.");
 		String nom1 = solicitarDatoString("Digite el nuevo primer nombre.");
 		String nom2 = solicitarDatoString("Digite el nuevo segundo nombre.(Opcional)");
 		String ape1 = solicitarDatoString("Digite el nuevo primer apellido.");

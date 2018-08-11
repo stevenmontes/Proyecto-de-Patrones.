@@ -23,8 +23,8 @@ public class Departamento {
 		this.estado = estado;
 	}
 	
-	public Departamento(String nombre) {
-		this.nombre =nombre;
+	public Departamento(String pcodigo) {
+		this.codigo =pcodigo;
 	}
 
 	public String getCodigo() {

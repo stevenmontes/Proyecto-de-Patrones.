@@ -38,7 +38,7 @@ public class MultiEmpleado {
 		String result;
 		
 		try {
-			Conector.getConector().ejecutarSQL(consulta, true);
+			Conector.getConector().ejecutarSQL(consulta);
 			result = "Se ha registrado exitosamente el empleado.";
 		} catch (Exception error) {
 			result = "No se pudo registrar el empleado. Vuelve a intentarlo." + error.getMessage();
@@ -48,14 +48,14 @@ public class MultiEmpleado {
 	}
 	
 	public String modificarEmpleado(Empleado E) {
-		String consulta = "{Call dbo.pa_modificar_empleado ('" + E.getCedula() + "', '" + E.getPrimerNombre() + "', '" + E.getSegundoNombre() + "', '"+E.getPrimerApellido()+"', '"+E.getSegundoApellido()+"', '"+E.getCorreo()+"', '"+E.getUsuario()+"', '"+E.getClave()+"', '"+E.getRol()+"', '"+E.getAreaFuncional()+"')}";
+		String consulta = "{Call dbo.pa_modificar_empleado ('" + E.getCedula() + "', '" + E.getPrimerNombre() + "', '" + E.getSegundoNombre() + "', '"+E.getPrimerApellido()+"', '"+E.getSegundoApellido()+"', '"+E.getCorreo()+"', '"+E.getUsuario()+"', '"+E.getClave()+"', '"+E.getRol()+"', '"+E.getAreaFuncional().getCodigo()+"')}";
 		String result;
 		
 		try {
-			Conector.getConector().ejecutarSQL(consulta, true);
+			Conector.getConector().ejecutarSQL(consulta);
 			result = "Se ha modificado exitosamente el empleado.";
 		} catch (Exception error) {
-			result = "No se pudo modificar el empleado. Vuelve a intentarlo.";
+			result = "No se pudo modificar el empleado. Vuelve a intentarlo."+error.getMessage();
 		}
 		
 		return result;
