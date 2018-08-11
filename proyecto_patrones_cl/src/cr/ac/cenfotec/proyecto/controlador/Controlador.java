@@ -200,9 +200,20 @@ public class Controlador {
 		return area_funcional.modificarEstado(codigo);
 
 	}
+	
+	public ArrayList<Tarea> obtenerTareasPorArea(String idArea) throws Exception{
+		ArrayList<Tarea> listaTareas = tarea.obtenerTareasPorArea(idArea);
+		
+		for(int tareaActual = 0; tareaActual < listaTareas.size(); tareaActual++) {
+			String codigo = listaTareas.get(tareaActual).getCodigo();
+			listaTareas.get(tareaActual).setPasos(pasos.listarPasos(codigo));
+		}
+		
+		return listaTareas;
+	}
 
 	public ArrayList<String> obtenerNombresPasos(String id_area) {
-		ArrayList<String> codigoTareas = tarea.obtenerTareasPorArea(id_area);
+		ArrayList<String> codigoTareas = tarea.obtenerCodigosTareasPorArea(id_area);
 		ArrayList<Paso> listaPasos;
 		ArrayList<String> nombrePasos = new ArrayList<>();
 		String codigoTarea;

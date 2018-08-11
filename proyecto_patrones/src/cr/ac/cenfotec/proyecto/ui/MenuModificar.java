@@ -17,8 +17,6 @@ public class MenuModificar extends MenuPrincipal{
 
 	@Override
 	public boolean seleccionarOpcion(int opcion) throws Exception {
-		boolean salir = false;
-
 		switch (opcion) {
 		case 1:
 			modificarProceso();
@@ -38,11 +36,10 @@ public class MenuModificar extends MenuPrincipal{
 		case 6:
 			modificarEstadoArea();
 		case 7:
-			salir = true;
-			break;
+			return true;
 		}
 
-		return salir;
+		return false;
 	}
 	
 	private void modificarEstadoArea() throws IOException {
