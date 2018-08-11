@@ -16,8 +16,6 @@ public class MenuRegistrar extends MenuPrincipal {
 
 	@Override
 	public boolean seleccionarOpcion(int opcion) throws Exception {
-		boolean salir = false;
-
 		switch (opcion) {
 		case 1:
 			obtenerInfoTramite();
@@ -35,11 +33,10 @@ public class MenuRegistrar extends MenuPrincipal {
 			obtenerInfoArea();
 			break;
 		case 6:
-			salir = true;
-			break;
+			return true;
 		}
 
-		return salir;
+		return false;
 	}
 
 	public void obtenerInfoTramite() throws IOException {

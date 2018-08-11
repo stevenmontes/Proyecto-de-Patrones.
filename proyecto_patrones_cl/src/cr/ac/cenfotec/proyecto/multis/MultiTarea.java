@@ -7,6 +7,7 @@ import cr.ac.cenfotec.proyecto.conexion.Conector;
 import cr.ac.cenfotec.proyecto.controlador.Fabrica;
 import cr.ac.cenfotec.proyecto.objetos.Departamento;
 import cr.ac.cenfotec.proyecto.objetos.Tarea;
+import cr.ac.cenfotec.proyecto.objetos.Tarea.TareaBuilder;
 
 public class MultiTarea {
 	
@@ -65,7 +66,29 @@ public class MultiTarea {
         return lista;
 	}
 	
-	public ArrayList<String> obtenerTareasPorArea (String id_area) {
+	public ArrayList<Tarea> obtenerTareasPorArea(String idArea) throws Exception{
+	    String consulta = "{Call dbo.pa_obtener_tareas_por_area ('"+idArea+"')}";
+		ArrayList<Tarea> listaTareas = new ArrayList<>();
+
+	        try {
+	                ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
+	                
+	                while(rs.next()) {
+	                	TareaBuilder nueva = new Tarea.TareaBuilder(rs.getString("codigo"),
+	                			rs.getString("nombre"), rs.getString("descripcion"));
+	                	nueva.withEstado(rs.getString("estado"));
+	                	Tarea nuevaT = nueva.createTarea();
+	                	listaTareas.add(nuevaT);
+	                }
+
+	        } catch (Exception ex) {
+	        	throw ex;
+	        }
+
+	        return listaTareas;
+	}
+	
+	public ArrayList<String> obtenerCodigosTareasPorArea (String id_area) {
         String consulta = "{Call dbo.pa_obtener_codigo_tarea_por_area ('"+id_area+"')}";
         ArrayList<String> relt = new ArrayList<>();
 

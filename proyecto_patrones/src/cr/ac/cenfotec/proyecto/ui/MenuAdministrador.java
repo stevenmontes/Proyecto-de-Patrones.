@@ -12,7 +12,6 @@ public class MenuAdministrador extends MenuPrincipal {
 	
 	@Override
 	public boolean seleccionarOpcion(int opcion) throws Exception {
-		boolean salir = false;
 		MenuPrincipal nuevoMenu;
 
 		switch (opcion) {
@@ -29,13 +28,12 @@ public class MenuAdministrador extends MenuPrincipal {
 			nuevoMenu.ejecutar();
 			break;
 		case 4:
-			salir = true;
-			break;
+			return true;
 		default:
 			imprimir.println("Comando inv\u00e1lido");
 			break;
 		}
 
-		return salir;
+		return false;
 	}
 }

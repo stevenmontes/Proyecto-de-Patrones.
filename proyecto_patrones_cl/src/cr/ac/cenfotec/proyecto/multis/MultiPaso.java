@@ -97,6 +97,7 @@ public class MultiPaso {
         		nuevoPaso.setDescripcion(conexion.getString("descripcion"));
         		nuevoPaso.setFechaInicio(conexion.getString("fecha_inicio"));
         		nuevoPaso.setFechaFin(conexion.getString("fecha_fin"));
+        		nuevoPaso.setEstado(conexion.getString("estado"));
         		listPasos.add(nuevoPaso);
         	}
 

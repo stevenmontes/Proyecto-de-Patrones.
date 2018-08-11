@@ -6,11 +6,12 @@ public abstract class Main extends MenuPrincipal{
 	static String[] usuario = {};
 	
 	public static void main(String[] args) throws Exception {
+		imprimir.println("Iniciando sistema...");
 		solicitarInicioSesion();
 		MenuPrincipal nuevo = seleccionarMenuPrincipal();
 		nuevo.ejecutar();
 		imprimir.println("Apagando sistema..");
-		imprimir.println("Apagado.");
+		imprimir.println("Sistema apagado");
 	}
 
 

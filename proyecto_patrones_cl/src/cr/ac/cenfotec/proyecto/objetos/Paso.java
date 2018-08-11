@@ -68,6 +68,10 @@ public class Paso {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 
 	public String getEstado() {
 		return estado;
