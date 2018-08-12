@@ -1,5 +1,7 @@
 package cr.ac.cenfotec.proyecto.multis;
 
+import cr.ac.cenfotec.proyecto.objetos.Tarea;
+import cr.ac.cenfotec.proyecto.objetos.Tarea.TareaBuilder;
 import cr.ac.cenfotec.proyecto.objetos.Tramite;
 
 import java.sql.ResultSet;
@@ -119,6 +121,28 @@ public class MultiTramite {
                 }
 
         } catch (Exception ex) {
+        }
+
+        return lista;
+	}
+	
+	public ArrayList<Tarea> obtenerTareas(int idProceso) throws Exception{
+		String consulta = "{Call dbo.pa_obtener_tareas_de_proceso ('" + idProceso + "')}";
+        ArrayList<Tarea> lista = new ArrayList<>();
+
+        try {
+                ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
+                
+                while(rs.next()) {
+                	TareaBuilder nueva = new Tarea.TareaBuilder(rs.getString("codigo"), 
+                			rs.getString("nombre"), rs.getString("descripcion"));
+                	nueva.numeroOrden(Integer.parseInt(rs.getString("numero_orden"))).estado(rs.getString("estado"));
+                	Tarea tareaNueva = nueva.createTarea();
+                	lista.add(tareaNueva);
+                }
+
+        } catch (Exception ex) {
+        	throw ex;
         }
 
         return lista;
