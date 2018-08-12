@@ -4,10 +4,10 @@ public class MenuAdministrador extends MenuPrincipal {
 
 	@Override
 	public void menu() {
-		imprimir.println("1.REGISTRAR");
-		imprimir.println("2.MODIFICAR");
-		imprimir.println("3.LISTAR");
-		imprimir.println("4.SALIR");
+		imprimir.println("1.REGISTRAR.");
+		imprimir.println("2.MODIFICAR.");
+		imprimir.println("3.LISTAR.");
+		imprimir.println("4.SALIR.");
 	}
 	
 	@Override
@@ -32,7 +32,7 @@ public class MenuAdministrador extends MenuPrincipal {
 			salir = true;
 			break;
 		default:
-			imprimir.println("Comando inv\u00e1lido");
+			imprimir.println("Comando inv\u00e1lido.");
 			break;
 		}
 

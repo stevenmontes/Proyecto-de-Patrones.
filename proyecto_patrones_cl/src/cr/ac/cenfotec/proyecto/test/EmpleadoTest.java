@@ -45,5 +45,9 @@ class EmpleadoTest {
 		} catch (SQLException error) {
 			System.out.println("No se pudo eliminar el tramite" + error.getMessage());
 		}
+		
+		
+
+		
 	}
 }

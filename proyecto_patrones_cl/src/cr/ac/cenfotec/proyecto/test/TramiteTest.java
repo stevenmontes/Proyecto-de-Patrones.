@@ -22,6 +22,16 @@ public class TramiteTest {
 		assertEquals("El proceso se registró correctamente en el sistema.",
 				c.registrarTramite("tes-02", "Test 02", "test nuevo "));
 	}
+	
+	
+	@Test
+	public void testListarTareas() throws Exception{
+		c.registrarTarea("TestTarea", "TEST", "TAREA", "TestArea", "tes-02");
+		c.registrarTarea("TestTarea2", "TEST2", "TAREA2", "TestArea2", "TestProceso2");
+		c.registrarTarea("TestTarea3", "TEST3", "TAREA", "TestArea3", "TestProceso3");
+		assertEquals(1, c.listarTareas("tes-02").length);
+		
+	}
 	@Test
 	public void modificarTramite() throws Exception {
 		assertEquals("El proceso se modificó correctamente en el sistema.",

@@ -55,7 +55,6 @@ public class Controlador {
 
 	public String registrarTramite(String codigo, String nombre, String descripcion) {
 		Tramite proceso = fabrica.crearTramite(codigo, nombre, descripcion);
-		
 		return sistema.registrarTramite(proceso);
 	}
 

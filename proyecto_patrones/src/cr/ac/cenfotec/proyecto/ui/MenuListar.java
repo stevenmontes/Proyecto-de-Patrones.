@@ -6,14 +6,14 @@ public class MenuListar extends MenuPrincipal{
 
 	@Override
 	public void menu() {
-		imprimir.println("0. Listar procesos");
-		imprimir.println("1. Listar proceso activos");
-		imprimir.println("2. Listar proceso completadas");
-		imprimir.println("3. Listar tarea de un proceso");
-		imprimir.println("4. Listar pasos de una tarea");
-		imprimir.println("5. Listar empleados");
-		imprimir.println("6. Listar areas funcionales");
-		imprimir.println("7. Salir");
+		imprimir.println("0. Listar procesos.");
+		imprimir.println("1. Listar proceso activos.");
+		imprimir.println("2. Listar proceso completadas.");
+		imprimir.println("3. Listar tarea de un proceso.");
+		imprimir.println("4. Listar pasos de una tarea.");
+		imprimir.println("5. Listar empleados.");
+		imprimir.println("6. Listar areas funcionales.");
+		imprimir.println("7. Salir.");
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class MenuListar extends MenuPrincipal{
 		boolean esCodigoValido = false;
 
 		while (!esCodigoValido) {
-			imprimir.println("Digite el c\u00f3digo del proceso");
+			imprimir.println("Digite el c\u00f3digo del proceso.");
 			codProceso = leer.readLine();
 			esCodigoValido = isValidarCodigoProceso(codProceso);
 		}
@@ -67,7 +67,7 @@ public class MenuListar extends MenuPrincipal{
 		boolean validar = false;
 
 		while (!validar) {
-			imprimir.println("Digite el c\u00f3digo de la tarea");
+			imprimir.println("Digite el c\u00f3digo de la tarea.");
 			codTarea = leer.readLine();
 			validar = isValidarCodigoTarea(codTarea);
 		}
@@ -100,7 +100,7 @@ public class MenuListar extends MenuPrincipal{
 			listaObjeto = controlador.listarAreas();
 			break;
 		default:
-			imprimir.println("Lo sentimos esa opci\u00f3n no est&aacute dentro del  men&uacute");
+			imprimir.println("Lo sentimos esa opci\u00f3n no est&aacute dentro del  men&uacute.");
 			;
 			break;
 		}
