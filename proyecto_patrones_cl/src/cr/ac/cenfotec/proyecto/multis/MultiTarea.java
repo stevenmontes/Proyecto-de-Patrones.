@@ -117,8 +117,10 @@ public class MultiTarea {
 			while (rs.next()) {
 				Departamento areaEncargada = fabrica.crearDepartamento(rs.getString("codA"), rs.getString("area"),
 						rs.getString("desA"));
-				TareaBuilder nuevo = new Tarea.TareaBuilder(rs.getString("codigo"), rs.getString("nombre"), rs.getString("descripcion"));
-				nuevo.estado(rs.getString("estado")).areaEncargada(areaEncargada).numeroOrden(Integer.parseInt(rs.getString("numero_orden")));
+				TareaBuilder nuevo = new Tarea.TareaBuilder(rs.getString("codigo"), rs.getString("nombre"),
+						rs.getString("descripcion"));
+				nuevo.estado(rs.getString("estado")).areaEncargada(areaEncargada)
+						.numeroOrden(Integer.parseInt(rs.getString("numero_orden")));
 				Tarea ex = nuevo.createTarea();
 				lista.add(ex);
 			}
@@ -129,9 +131,9 @@ public class MultiTarea {
 
 		return lista;
 	}
-	
+
 	public String registrarEstadoTarea(String codigo, String estado) {
-		String consulta = "{Call dbo.pa_registrar_estado_tarea ('" + codigo + "','" + estado +"')}";
+		String consulta = "{Call dbo.pa_registrar_estado_tarea ('" + codigo + "','" + estado + "')}";
 
 		try {
 			Conector.getConector().ejecutarSQL(consulta);
@@ -139,5 +141,23 @@ public class MultiTarea {
 		} catch (Exception ex) {
 			return "No se pudo modificar el estado de la tarea";
 		}
+	}
+	
+	public int obtenerProceso(String codTarea) throws Exception {
+		String consulta = "{Call dbo.pa_obtener_proceso ('" + codTarea + "')}";
+		int idProceso = 0;
+
+		try {
+			ResultSet conexion = Conector.getConector().ejecutarSQL(consulta, true);
+			
+			while(conexion.next()) {
+				idProceso = Integer.parseInt(conexion.getString("id_proceso"));
+			}
+
+		} catch (Exception ex) {
+			throw ex;
+		}
+		
+		return idProceso;
 	}
 }

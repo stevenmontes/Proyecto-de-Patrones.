@@ -20,7 +20,7 @@ public class MultiPaso {
 
         try {
                 Conector.getConector().ejecutarSQL(consulta);
-                resultado = "El paso se registrÃ³ correctamente en el sistema.";
+                resultado = "El paso se registró correctamente en el sistema.";
 
         } catch (Exception error) {
                 resultado = "No se pudo registrar el paso, intentelo de nuevo";
@@ -107,5 +107,5 @@ public class MultiPaso {
         }
 
         return listPasos;
-	}
+	}	
 }

@@ -207,7 +207,7 @@ public class Controlador {
 		return tareaAsignada;
 	}
 	
-	public boolean validarEstadoPaso(String estado) {
+	public boolean validarEstado(String estado) {
 		if(estado.equals("Completado")) {
 			return false;
 		} else {
@@ -217,6 +217,14 @@ public class Controlador {
 
 	public String registrarEstadoTarea(String codTarea, String estado) {
 		return tarea.registrarEstadoTarea(codTarea, estado);
+	}
+	
+	public int obtenerProcesoDeTarea(String codTarea) throws Exception {
+		return tarea.obtenerProceso(codTarea);
+	}
+	
+	public ArrayList<Tarea> obtenerTareasProceso(int idProceso) throws Exception{
+		return sistema.obtenerTareas(idProceso);
 	}
 
 }
