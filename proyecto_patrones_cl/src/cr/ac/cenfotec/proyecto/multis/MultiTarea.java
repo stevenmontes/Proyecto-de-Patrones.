@@ -69,9 +69,9 @@ public class MultiTarea {
 		return lista;
 	}
 
-	public ArrayList<Tarea> obtenerTareasPorArea(String idArea) throws Exception {
+	public Tarea obtenerTareaPorArea(String idArea) throws Exception {
 		String consulta = "{Call dbo.pa_obtener_tareas_por_area ('" + idArea + "')}";
-		ArrayList<Tarea> listaTareas = new ArrayList<>();
+		Tarea nuevaT = fabrica.crearTarea();
 
 		try {
 			ResultSet rs = Conector.getConector().ejecutarSQL(consulta, true);
@@ -79,16 +79,15 @@ public class MultiTarea {
 			while (rs.next()) {
 				TareaBuilder nueva = new Tarea.TareaBuilder(rs.getString("codigo"), rs.getString("nombre"),
 						rs.getString("descripcion"));
-				nueva.estado(rs.getString("estado"));
-				Tarea nuevaT = nueva.createTarea();
-				listaTareas.add(nuevaT);
+				nueva.estado(rs.getString("estado")).numeroOrden(Integer.parseInt(rs.getString("numero_orden")));
+				nuevaT = nueva.createTarea();
 			}
 
 		} catch (Exception ex) {
 			throw ex;
 		}
 
-		return listaTareas;
+		return nuevaT;
 	}
 
 	public ArrayList<String> obtenerCodigosTareasPorArea(String id_area) {
@@ -129,5 +128,16 @@ public class MultiTarea {
 		}
 
 		return lista;
+	}
+	
+	public String registrarEstadoTarea(String codigo, String estado) {
+		String consulta = "{Call dbo.pa_registrar_estado_tarea ('" + codigo + "','" + estado +"')}";
+
+		try {
+			Conector.getConector().ejecutarSQL(consulta);
+			return "El estado de la tarea se registro exitosamente";
+		} catch (Exception ex) {
+			return "No se pudo modificar el estado de la tarea";
+		}
 	}
 }

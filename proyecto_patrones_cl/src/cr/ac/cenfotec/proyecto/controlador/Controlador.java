@@ -132,10 +132,9 @@ public class Controlador {
 	}
 
 	public String modificarPaso(Paso pasoNuevo) {
-		String consulta = "{Call dbo.pa_modificar_paso_completo ('" + pasoNuevo.getCodigo() +
-				"', '" + pasoNuevo.getEstado() + "','" +  pasoNuevo.getRespuesta() +
-				"', '" + pasoNuevo.getFechaInicio() + "','" + pasoNuevo.getFechaFin() +
-				"', '" + pasoNuevo.getEncargado().getCedula() + "')}";
+		String consulta = "{Call dbo.pa_modificar_paso_completo ('" + pasoNuevo.getCodigo() + "', '"
+				+ pasoNuevo.getEstado() + "','" + pasoNuevo.getRespuesta() + "', '" + pasoNuevo.getFechaInicio() + "','"
+				+ pasoNuevo.getFechaFin() + "', '" + pasoNuevo.getEncargado().getCedula() + "')}";
 		return pasos.modificarPaso(consulta);
 	}
 
@@ -148,6 +147,11 @@ public class Controlador {
 		}
 
 		return listString;
+	}
+
+	public boolean obtenerEstadoPaso(int numeroOrden) {
+
+		return false;
 	}
 
 	public String registrarEmpleado(String ced, String nom1, String nom2, String ape1, String ape2, String correo,
@@ -202,15 +206,22 @@ public class Controlador {
 
 	}
 
-	public ArrayList<Tarea> obtenerTareasPorArea(String idArea) throws Exception {
-		ArrayList<Tarea> listaTareas = tarea.obtenerTareasPorArea(idArea);
-
-		for (int tareaActual = 0; tareaActual < listaTareas.size(); tareaActual++) {
-			String codigo = listaTareas.get(tareaActual).getCodigo();
-			listaTareas.get(tareaActual).setPasos(pasos.listarPasos(codigo));
+	public Tarea obtenerTareasPorArea(String idArea) throws Exception {
+		Tarea tareaAsignada = tarea.obtenerTareaPorArea(idArea);
+		tareaAsignada.setPasos(pasos.listarPasos(tareaAsignada.getCodigo()));
+		return tareaAsignada;
+	}
+	
+	public boolean validarEstadoPaso(String estado) {
+		if(estado.equals("Completado")) {
+			return false;
+		} else {
+			return true;
 		}
+	}
 
-		return listaTareas;
+	public String registrarEstadoTarea(String codTarea, String estado) {
+		return tarea.registrarEstadoTarea(codTarea, estado);
 	}
 
 }
