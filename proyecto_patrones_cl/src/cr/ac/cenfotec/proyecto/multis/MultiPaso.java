@@ -109,4 +109,8 @@ public class MultiPaso {
         return listPasos;
 	}
 	
+	public String obtenerEstado(int numeroOrden) {
+		return null;
+	}
+	
 }
