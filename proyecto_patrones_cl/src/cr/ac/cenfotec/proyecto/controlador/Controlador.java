@@ -149,11 +149,6 @@ public class Controlador {
 		return listString;
 	}
 
-	public boolean obtenerEstadoPaso(int numeroOrden) {
-
-		return false;
-	}
-
 	public String registrarEmpleado(String ced, String nom1, String nom2, String ape1, String ape2, String correo,
 			String nomU, String clave, String rol, String codArea) {
 		Departamento area = fabrica.crearDepartamento(codArea);
