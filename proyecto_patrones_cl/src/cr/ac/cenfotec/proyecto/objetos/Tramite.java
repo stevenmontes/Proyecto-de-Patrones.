@@ -13,11 +13,21 @@ public class Tramite {
 	private String descripcion;
 	private String estado;
 	private ArrayList<Tarea> listaTareas;
+	private String firma;
 		
 	public Tramite () {
 		listaTareas = new ArrayList<>();
 	}	
 	
+	public Tramite(String codigo, String nombre, String descripcion,String firma) {
+		super();
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.firma = firma;
+		listaTareas = new ArrayList<>();
+	}
+
 	public Tramite(String codigo, String nombre, String descripcion) {
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -68,6 +78,7 @@ public class Tramite {
 		this.fecha_fin = formatoFecha.format(fin);
 	}
 	
+	
 	public String getFechaFin() {
 		return this.fecha_fin;
 	}
@@ -76,6 +87,14 @@ public class Tramite {
 		this.descripcion = descripcion;
 	}
 	
+	public String getFirma() {
+		return firma;
+	}
+
+	public void setFirma(String firma) {
+		this.firma = firma;
+	}
+
 	public String getDescripcion() {
 		return this.descripcion;
 	}

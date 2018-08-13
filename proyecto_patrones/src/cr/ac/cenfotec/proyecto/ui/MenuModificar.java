@@ -2,8 +2,11 @@ package cr.ac.cenfotec.proyecto.ui;
 
 import java.io.IOException;
 
-public class MenuModificar extends MenuPrincipal{
+import cr.ac.cenfotec.proyecto.controlador.EncryptManager;
+import cr.ac.cenfotec.proyecto.objetos.Tramite;
 
+public class MenuModificar extends Main{
+	static EncryptManager em=new EncryptManager();
 	@Override
 	public void menu() {
 		imprimir.println("1. Modificar proceso");
@@ -12,7 +15,8 @@ public class MenuModificar extends MenuPrincipal{
 		imprimir.println("4. Modificar empleados");
 		imprimir.println("5. Modificar \u00e1reas funcionales");
 		imprimir.println("6. Modificar estado \u00e1rea funcional");
-		imprimir.println("7. Salir");
+		imprimir.println("7. Modificar el estado del proceso");
+		imprimir.println("8. Salir.");
 	}
 
 	@Override
@@ -35,13 +39,31 @@ public class MenuModificar extends MenuPrincipal{
 			break;
 		case 6:
 			modificarEstadoArea();
+			break;
 		case 7:
+			modificarEstadoTramite();
+			break;
+		case 8:
 			return true;
 		}
 
 		return false;
 	}
 	
+	private void modificarEstadoTramite() throws Exception {		
+		String firma=solicitarDatoString("Digite la llave");
+		if(em.isvalidarFirmaDigital(firma,usuario[0])){
+		String codigo = solicitarDatoString("Digite el nuevo c\u00f3digo");
+		if(isValidarCodigoProceso(codigo)){
+		imprimir.println(controlador.modificarEstadoTramite(codigo, firma));
+		}else {
+			imprimir.println("No existe el c\u00f3digo del proceso. vuelve a intentarlo");
+		}
+		}	else {
+			imprimir.println("No existe la llave. vuelve a intentarlo");
+		}
+	}
+
 	private void modificarEstadoArea() throws IOException {
 		imprimir.println("Digite el código del departamento al que desea cambiarle el estado");
 		String codigo = leer.readLine();
@@ -49,11 +71,12 @@ public class MenuModificar extends MenuPrincipal{
 		imprimir.println(controlador.modificarEstadoDepartamento(codigo));
 	}
 
-	public void modificarProceso() throws IOException {
+	public void modificarProceso() throws Exception {
 		String codigo = solicitarDatoString("Digite el nuevo c\u00f3digo");
 		String nombre = solicitarDatoString("Digite el nuevo nombre");
 		String descripcion = solicitarDatoString("Digite la nueva descripci\u00f3n");
-
+		String res=solicitarDatoString("Desea agregar firma digital. y/n");
+		String firma="";
 		if (isValidarCodigoProceso(codigo)) {
 			imprimir.println(controlador.modificarTramite(codigo, nombre, descripcion));
 		} else {

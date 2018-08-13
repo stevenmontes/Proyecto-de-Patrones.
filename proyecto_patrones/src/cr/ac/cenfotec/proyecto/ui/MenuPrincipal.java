@@ -11,9 +11,7 @@ public abstract class MenuPrincipal {
 	protected static PrintStream imprimir = System.out;
 	protected static BufferedReader leer = new BufferedReader(new InputStreamReader(System.in));
 	protected static Controlador controlador = new Controlador();
-	
 	public abstract void menu();
-
 	public abstract boolean seleccionarOpcion(int opcion) throws Exception;
 
 	public boolean ejecutar() throws Exception {

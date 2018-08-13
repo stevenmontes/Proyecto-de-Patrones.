@@ -13,7 +13,7 @@ public class MultiTramite {
 	}
 	
 	public String registrarTramite (Tramite nuevoP) {
-        String consulta = "{Call dbo.pa_registrar_proceso ('" + nuevoP.getCodigo() + "','" + nuevoP.getNombre() + "', '" + nuevoP.getDescripcion() + "')}";
+        String consulta = "{Call dbo.pa_registrar_proceso ('" + nuevoP.getCodigo() + "','" + nuevoP.getNombre() + "', '" + nuevoP.getDescripcion() +"')}";
         String resultado;
 
         try {
@@ -29,7 +29,7 @@ public class MultiTramite {
 	}
 	
 	public String modificarTramite (Tramite E) {
-        String consulta = "{Call dbo.pa_modificar_proceso ('" + E.getCodigo() + "','" + E.getNombre() + "', '" + E.getDescripcion() + "')}";
+        String consulta = "{Call dbo.pa_registrar_proceso ('" + E.getCodigo() + "','" + E.getNombre() + "', '" + E.getDescripcion() + "','"+E.getFirma()+"')}";
         String resultado;
 
         try {
@@ -122,6 +122,20 @@ public class MultiTramite {
         }
 
         return lista;
+	}
+
+	public String modificarEstado(String  codigo, String firma) {
+		  String consulta = "{Call dbo.pa_modificarEstadoTramite ('"+codigo+"','"+firma +"')}";
+	        String resultado;
+
+	        try {
+	                Conector.getConector().ejecutarSQL(consulta);
+	                resultado = "El proceso se activó correctamente en el sistema.";
+
+	        } catch (Exception ex) {
+	                resultado = "El proceso se no se activo correctamente en el sistema, intentelo de nuevo " + ex.getMessage();
+	        }
+	        return resultado;
 	}
 	
 }

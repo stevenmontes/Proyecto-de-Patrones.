@@ -2,21 +2,30 @@ package cr.ac.cenfotec.proyecto.ui;
 
 import java.io.IOException;
 
-public class MenuRegistrar extends MenuPrincipal {
+import cr.ac.cenfotec.proyecto.controlador.EncryptManager;
 
+public class MenuRegistrar extends Main {
+	static EncryptManager em=new EncryptManager();
+	
 	@Override
 	public void menu() {
-		imprimir.println("1. Registrar proceso");
-		imprimir.println("2. Registrar tarea");
-		imprimir.println("3. Registrar pasos");
-		imprimir.println("4. Registrar empleados");
-		imprimir.println("5. Registrar \u00e1reas funcionales");
-		imprimir.println("6. Salir");
+		imprimir.println("0. Registrar firma.");
+		imprimir.println("1. Registrar proceso.");
+		imprimir.println("2. Registrar tarea.");
+		imprimir.println("3. Registrar pasos.");
+		imprimir.println("4. Registrar empleados.");
+		imprimir.println("5. Registrar \u00e1reas funcionales.");
+		imprimir.println("6. Salir.");
 	}
 
 	@Override
 	public boolean seleccionarOpcion(int opcion) throws Exception {
+		boolean salir = false;
+
 		switch (opcion) {
+		case 0:
+			registrarFirma();
+			break;
 		case 1:
 			obtenerInfoTramite();
 			break;
@@ -33,17 +42,26 @@ public class MenuRegistrar extends MenuPrincipal {
 			obtenerInfoArea();
 			break;
 		case 6:
-			return true;
+			salir = true;
+			break;
 		}
 
-		return false;
+		return salir;
 	}
 
-	public void obtenerInfoTramite() throws IOException {
-		String codigo = solicitarDatoString("Digite el c\u00f3digo");
-		String nombre = solicitarDatoString("Digite el nombre");
-		String descripcion = solicitarDatoString("Digite el descripci\u00f3n");
+	public void registrarFirma() throws Exception  {
+		String llave = solicitarDatoString("Digite una llave.");
+		String nombre=solicitarDatoString("Digite el nombre del mensaje.");
+		String mensaje=solicitarDatoString("Digite el nombre del mensaje.");
+		em.createKey(llave);
+		System.out.println(em.obtenerFirma(usuario[0],mensaje,llave));	
+	}
 
+	public void obtenerInfoTramite() throws Exception {
+		String codigo = solicitarDatoString("Digite el c\u00f3digo.");
+		String nombre = solicitarDatoString("Digite el nombre.");
+		String descripcion = solicitarDatoString("Digite el descripci\u00f3n.");
+		String res=solicitarDatoString("Desea agregar firma digital. y/n");
 		if (!isValidarCodigoProceso(codigo)) {
 			imprimir.println(controlador.registrarTramite(codigo, nombre, descripcion));
 		} else {
@@ -55,8 +73,8 @@ public class MenuRegistrar extends MenuPrincipal {
 		String codigoTarea = solicitarDatoString("Digite el c\u00f3digo.");
 		String nombre = solicitarDatoString("Digite el nombre.");
 		String descripcion = solicitarDatoString("Digite el descripci\u00f3n.");
-		String codigoDep = solicitarDatoString("Digite el c\u00f3digo del departamento encargado");
-		String codigoPro = solicitarDatoString("Digite el c\u00f3digo del proceso que pertenece esta tarea");
+		String codigoDep = solicitarDatoString("Digite el c\u00f3digo del departamento encargado.");
+		String codigoPro = solicitarDatoString("Digite el c\u00f3digo del proceso que pertenece esta tarea.");
 
 		if (!isValidarCodigoTarea(codigoTarea) && isValidarCodigoProceso(codigoPro)
 				&& isValidarCodigoAreaFuncional(codigoDep)) {
@@ -68,12 +86,12 @@ public class MenuRegistrar extends MenuPrincipal {
 	}
 
 	public void obtenerInfoPaso() throws IOException {
-		String codigoTarea = solicitarDatoString("Digite el c\u00f3digo de la tarea que pertenece este paso");
+		String codigoTarea = solicitarDatoString("Digite el c\u00f3digo de la tarea que pertenece este paso.");
 		String codigo = solicitarDatoString("Digite el c\u00f3digo.");
 		String nombre = solicitarDatoString("Digite el nombre.");
 		String descripcion = solicitarDatoString("Digite la descripci\u00f3n.");
 
-		if (isValidarCodigoTarea(codigoTarea)) {
+		if (!isValidarCodigoTarea(codigoTarea)) {
 			imprimir.println(controlador.registrarPaso(codigo, nombre, descripcion, codigoTarea));
 		} else {
 			imprimir.println("El c\u00f3digo de la tarea no se encuentra en el sistema.");
@@ -93,7 +111,7 @@ public class MenuRegistrar extends MenuPrincipal {
 		String clave = solicitarDatoString("Digite la clave.");
 		String rol = solicitarDatoString("Digite el rol.");
 		String codArea = solicitarDatoString(
-				"Digite el c\u00f3digo de la \u00e1rea funcional la cual pertenece el empleado");
+				"Digite el c\u00f3digo de la \u00e1rea funcional la cual pertenece el empleado.");
 
 		if (!isValidarCodigoEmpleado(cedula) && isValidarCodigoAreaFuncional(codArea)) {
 			imprimir.println(

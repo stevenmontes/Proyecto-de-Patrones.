@@ -75,6 +75,9 @@ public class Controlador {
 
 		return infoProcesos;
 	}
+	public String modificarEstadoTramite(String codigo,String firma) {
+		return sistema.modificarEstado(codigo,firma);
+	}
 
 	public String[] listarProcesosActivos() {
 		ArrayList<Tramite> lisPA = sistema.obtenerProcesosActivos();
@@ -201,6 +204,7 @@ public class Controlador {
 		return area_funcional.modificarEstado(codigo);
 
 	}
+	
 
 	public ArrayList<Tarea> obtenerTareasPorArea(String idArea) throws Exception {
 		ArrayList<Tarea> listaTareas = tarea.obtenerTareasPorArea(idArea);
