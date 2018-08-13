@@ -235,14 +235,17 @@ CREATE PROCEDURE pa_modificar_empleado
 				rol = @rol,
 				id_area_funcional = @id_area
 		WHERE cedula = @cedula
+GO
 
-CREATE PROCEDURE pa_registrar_departamento
+CREATE OR ALTER PROCEDURE pa_registrar_departamento
 	@nombre VARCHAR(50),
 	@codigo VARCHAR(50),
 	@descripcion VARCHAR(300)
 	AS
-		INSERT INTO tarea_funcional (nombre, codigo, descripcion)
-		VALUES (@nombre, @codigo, @descripcion)
+		INSERT INTO tarea_funcional (nombre, codigo, descripcion, estado)
+		VALUES (@nombre, @codigo, @descripcion, 1)
+
+GO
 
 CREATE PROCEDURE pa_modificar_departamento
 	@nombre VARCHAR(50),
