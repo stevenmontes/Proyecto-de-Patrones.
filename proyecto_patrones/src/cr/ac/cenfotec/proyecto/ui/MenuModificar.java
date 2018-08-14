@@ -15,7 +15,8 @@ public class MenuModificar extends Main {
 		imprimir.println("4. Modificar empleados");
 		imprimir.println("5. Modificar \u00e1reas funcionales");
 		imprimir.println("6. Modificar estado \u00e1rea funcional");
-		imprimir.println("7. Salir");
+		imprimir.println("7. Modificar estado de proceso");
+		imprimir.println("8. Salir");
 	}
 
 	@Override
@@ -38,6 +39,7 @@ public class MenuModificar extends Main {
 			break;
 		case 6:
 			modificarEstadoArea();
+			break;
 		case 7:
 			modificarEstadoTramite();
 			break;
