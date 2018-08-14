@@ -5,7 +5,7 @@ import java.io.IOException;
 import cr.ac.cenfotec.proyecto.controlador.EncryptManager;
 
 public class MenuRegistrar extends Main {
-	private EncryptManager encriptador;
+	private EncryptManager encriptador=new EncryptManager();
 
 	@Override
 	public void menu() {
