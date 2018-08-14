@@ -23,7 +23,7 @@ public class MenuAreas extends Main {
 					imprimir.println("	-" + listaPasos.get(indPaso).getNumeroOrden() + ". "
 							+ listaPasos.get(indPaso).getNombre() + " (" + listaPasos.get(indPaso).getEstado() + ")");
 				}
-				
+
 			} else {
 				imprimir.println("--------------------------------");
 				imprimir.println("Los pasos de esta tarea estan completos. \n" + " Ya no queda ningun paso pendiente.");
@@ -35,28 +35,6 @@ public class MenuAreas extends Main {
 		}
 
 		imprimir.println("	-0. Salir");
-	}
-
-	private boolean esTareaAnteriorValida() {
-		int idProceso;
-		try {
-			idProceso = controlador.obtenerProcesoDeTarea(tareaAsignada.getCodigo());
-			ArrayList<Tarea> lista = controlador.obtenerTareasProceso(idProceso);
-
-			for (Tarea tareaActual : lista) {
-				if (tareaActual.getNumeroOrden() == tareaAsignada.getNumeroOrden() - 1) {
-					return controlador.validarEstado(tareaActual.getEstado());
-				}
-			}
-
-			return false;
-
-		} catch (Exception error) {
-			imprimir.println("ERROR al validar la tarea anterior.");
-			error.printStackTrace();
-		}
-
-		return false;
 	}
 
 	@Override
@@ -79,14 +57,40 @@ public class MenuAreas extends Main {
 		return false;
 	}
 
+	private boolean esTareaAnteriorValida() {
+		if (tareaAsignada.getNumeroOrden() == 1) {
+			return false;
+		}
+
+		int idProceso;
+		try {
+			idProceso = controlador.obtenerProcesoDeTarea(tareaAsignada.getCodigo());
+			ArrayList<Tarea> lista = controlador.obtenerTareasProceso(idProceso);
+
+			for (Tarea tareaActual : lista) {
+				if (tareaActual.getNumeroOrden() == tareaAsignada.getNumeroOrden() - 1) {
+					return controlador.validarEstado(tareaActual.getEstado());
+				}
+			}
+
+			return false;
+
+		} catch (Exception error) {
+			imprimir.println("ERROR al validar la tarea anterior.");
+			error.printStackTrace();
+		}
+
+		return false;
+	}
+
 	private void mostrarPregunta(int opcion) throws IOException {
 		Paso nuevoPaso = buscarPasoActual(opcion);
-		if (validarPaso(nuevoPaso.getNumeroOrden())) {
+		if (controlador.validarEstado(nuevoPaso.getEstado())) {
 			imprimir.println(nuevoPaso.getDescripcion() + " (Y/N)");
 			ingresarCambiosPasos(leer.readLine().charAt(0), nuevoPaso);
 			imprimir.println(controlador.modificarPaso(nuevoPaso));
 
-			if (buscarEstadoPaso(opcion + 1) == null) {
+			if (buscarPasoActual(opcion + 1) == null) {
 				tareaAsignada.completar();
 				imprimir.println(
 						controlador.registrarEstadoTarea(tareaAsignada.getCodigo(), tareaAsignada.getEstado()));
@@ -109,28 +113,13 @@ public class MenuAreas extends Main {
 	}
 
 	private boolean validarPaso(int numeroOrden) {
-		String estado = buscarEstadoPaso(numeroOrden);
-		return controlador.validarEstado(estado);
+		return controlador.validarEstado(buscarPasoActual(numeroOrden).getEstado());
 	}
 
-	private Paso buscarPasoActual(int opcion) {
-		ArrayList<Paso> listaPasos = tareaAsignada.getPasos();
-
-		for (Paso pasoActual : listaPasos) {
-			if (pasoActual.getNumeroOrden() == opcion) {
+	private Paso buscarPasoActual(int numOrden) {
+		for (Paso pasoActual : tareaAsignada.getPasos()) {
+			if (pasoActual.getNumeroOrden() == numOrden) {
 				return pasoActual;
-			}
-		}
-
-		return null;
-	}
-
-	private String buscarEstadoPaso(int numOrden) {
-		ArrayList<Paso> listaPasos = tareaAsignada.getPasos();
-
-		for (int i = 0; i < listaPasos.size(); i++) {
-			if (listaPasos.get(i).getNumeroOrden() == numOrden) {
-				return listaPasos.get(i).getEstado();
 			}
 		}
 
@@ -139,9 +128,7 @@ public class MenuAreas extends Main {
 
 	private void inicializarTareas() {
 		try {
-			imprimir.println("----------------------");
-			imprimir.println("Obteniendo tarea...");
-			imprimir.println("----------------------");
+			imprimir.println("Obteniendo tarea...\n----------------------");
 			tareaAsignada = controlador.obtenerTareasPorArea(areaEncargada);
 		} catch (Exception error) {
 			imprimir.println("Error en obtener las tareas");

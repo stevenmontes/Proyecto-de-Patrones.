@@ -2,7 +2,10 @@ package cr.ac.cenfotec.proyecto.ui;
 
 import java.io.IOException;
 
-public class MenuModificar extends MenuPrincipal{
+import cr.ac.cenfotec.proyecto.controlador.EncryptManager;
+
+public class MenuModificar extends Main {
+	private EncryptManager encriptador;
 
 	@Override
 	public void menu() {
@@ -36,12 +39,15 @@ public class MenuModificar extends MenuPrincipal{
 		case 6:
 			modificarEstadoArea();
 		case 7:
+			modificarEstadoTramite();
+			break;
+		case 8:
 			return true;
 		}
 
 		return false;
 	}
-	
+
 	private void modificarEstadoArea() throws IOException {
 		imprimir.println("Digite el código del departamento al que desea cambiarle el estado");
 		String codigo = leer.readLine();
@@ -127,6 +133,20 @@ public class MenuModificar extends MenuPrincipal{
 			imprimir.println(controlador.modificarArea(codigo, nombre, descripcion));
 		} else {
 			imprimir.println("El c\\u00f3digo de la area funcional ya existe en el sistema.");
+		}
+	}
+
+	private void modificarEstadoTramite() throws Exception {
+		String firma = solicitarDatoString("Digite la llave");
+		if (encriptador.isvalidarFirmaDigital(firma, usuario[0])) {
+			String codigo = solicitarDatoString("Digite el nuevo c\u00f3digo");
+			if (isValidarCodigoProceso(codigo)) {
+				imprimir.println(controlador.modificarEstadoTramite(codigo, firma));
+			} else {
+				imprimir.println("No existe el c\u00f3digo del proceso. vuelve a intentarlo");
+			}
+		} else {
+			imprimir.println("No existe la llave. vuelve a intentarlo");
 		}
 	}
 

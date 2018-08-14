@@ -2,10 +2,14 @@ package cr.ac.cenfotec.proyecto.ui;
 
 import java.io.IOException;
 
-public class MenuRegistrar extends MenuPrincipal {
+import cr.ac.cenfotec.proyecto.controlador.EncryptManager;
+
+public class MenuRegistrar extends Main {
+	private EncryptManager encriptador;
 
 	@Override
 	public void menu() {
+		imprimir.println("0. Registrar firma.");
 		imprimir.println("1. Registrar proceso");
 		imprimir.println("2. Registrar tarea");
 		imprimir.println("3. Registrar pasos");
@@ -17,6 +21,9 @@ public class MenuRegistrar extends MenuPrincipal {
 	@Override
 	public boolean seleccionarOpcion(int opcion) throws Exception {
 		switch (opcion) {
+		case 0:
+			registrarFirma();
+			break;
 		case 1:
 			obtenerInfoTramite();
 			break;
@@ -113,6 +120,13 @@ public class MenuRegistrar extends MenuPrincipal {
 		} else {
 			imprimir.println("El c\u00f3digo del \u00e1rea funcional ya existe en el sistema.");
 		}
+	}
+
+	public void registrarFirma() throws Exception {
+		String llave = solicitarDatoString("Digite una llave.");
+		String mensaje = solicitarDatoString("Digite el nombre del mensaje.");
+		encriptador.createKey(llave);
+		System.out.println(encriptador.obtenerFirma(usuario[0], mensaje, llave));
 	}
 
 }

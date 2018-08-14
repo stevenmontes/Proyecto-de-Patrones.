@@ -226,5 +226,9 @@ public class Controlador {
 	public ArrayList<Tarea> obtenerTareasProceso(int idProceso) throws Exception{
 		return sistema.obtenerTareas(idProceso);
 	}
+	
+	public String modificarEstadoTramite(String codigo,String firma) {
+		return sistema.modificarEstado(codigo,firma);
+	}
 
 }
