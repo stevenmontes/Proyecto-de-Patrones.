@@ -95,22 +95,19 @@ public class MultiDepartamento {
 			
 		}
 		
-		if (estado == null) {
-			return "\nNo existe ningún departamento con ese código";
-		}
-		
-		if (estado.equals("0")) {
+		if (estado.equals("0")||estado.equals(null)) {
 			try {
 				Conector.getConector().ejecutarSQL("UPDATE tarea_funcional SET estado = 1 WHERE codigo = '" + codigo + "';");
 				mensaje = "\nSe ha modificado el departamento de inactivo a activo";
 			} catch (Exception e) {
-				return e.getMessage();
+				 e.getMessage();
 			}
 			
 		}
 		
 		if (estado.equals("1")) {
 			try {
+				
 				Conector.getConector().ejecutarSQL("UPDATE tarea_funcional SET estado = 0 WHERE codigo = '" + codigo + "';");
 				mensaje = "\nSe ha modificado el departamento de activo a inactivo";
 			} catch (Exception e) {
@@ -118,7 +115,4 @@ public class MultiDepartamento {
 			}
 			
 		}
-		
-		return mensaje;
-	}
 }
